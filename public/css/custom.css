@@ -1,0 +1,34 @@
+.pp-inline {
+	margin-top:0px !important;
+}
+.m-form__help {
+	font-weight:500 !important;
+}
+.table-information {
+	float: right;
+}
+.table-pagination {
+	display: inline-block;
+}
+.table-pagination li{
+	margin-right: 5px;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    background: #edecf8;
+    padding: 8px;
+    color: #716aca;
+    text-align: center;
+}
+.table-pagination li.active{
+    background: #716aca;
+    color: #ffffff;
+}
+.delete-form {
+	display: inline-block;
+}
+.pro-img-responsive {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
