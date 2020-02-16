@@ -7,7 +7,7 @@
 			<div class="m-portlet__head-caption">
 				<div class="m-portlet__head-title">
 					<h3 class="m-portlet__head-text">
-						@lang('trn.CATE_LIST')
+						Amenties
 					</h3>
 				</div>
 			</div>
@@ -26,11 +26,11 @@
 						</div>
 					</div>
 					<div class="col-xl-4 order-1 order-xl-2 m--align-right">
-						<a href="{{url("/categories/create")}}" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+						<a href="{{url("/amenties/create")}}" class="btn btn-accent m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
 							<span>
 								<i class="la la-cart-plus"></i>
 								<span>
-									@lang('trn.NEW_CATEGORY')
+									Add New Amenties
 								</span>
 							</span>
 						</a>
@@ -45,10 +45,7 @@
 							#
 						</th>
 						<th class="m-widget11__app">
-							Category Name
-						</th>
-						<th class="m-widget11__change">
-							Show Nav
+							Name
 						</th>
 						<th class="m-widget11__price">
 							Action
@@ -56,8 +53,8 @@
 					</tr>
 				</thead>
 				<tbody>
-					@if ($categories->isNotEmpty())
-						@foreach ($categories as $key=> $item)
+					@if ($amenties->isNotEmpty())
+						@foreach ($amenties as $key=> $item)
 							<tr>
 								<th scope="row">
 									{{$key+1}}
@@ -68,24 +65,15 @@
 									</span>
 								</td>
 								<td>
-									<span class="m-switch m-switch--icon m-switch--success">
-										<label>
-											{{Form::checkbox('show_nav',1,$item->show_nav,array('class'=>'show_nav','data-id'=>$item->id))}}
-											<span></span>
-										</label>
-									</span>
-									
-								</td>
-								<td>
-									<a href="categories/{{$item->id}}/edit" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit details"><i class="la la-edit"></i></a>
-									{!! Form::open(['method' => 'DELETE','class'=>'delete-form','route' => ['categories.destroy', $item->id]]) !!}
+									<a href="amenties/{{$item->id}}/edit" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit details"><i class="la la-edit"></i></a>
+									{!! Form::open(['method' => 'DELETE','class'=>'delete-form','route' => ['amenties.destroy', $item->id]]) !!}
 										<button onClick="return confirm('Are you absolutely sure you want to delete?')" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" type="submit"><i class="la la-trash"></i> </button>
 									{!! Form::close() !!}
 								</td>
 							</tr>
 						@endforeach
 					@else
-						</tr>
+						<tr>
 							<td colspan="5" class="m--align-center m--font-brand ">
 								@lang('trn.NO_DATA_FOUND')
 							</td>
@@ -94,12 +82,12 @@
 				</tbody>
 				<!--end::Tbody-->
 			</table>
-			@if ($categories->isNotEmpty())
+			@if ($amenties->isNotEmpty())
 				<div class="table-pagination">
-					{{$categories->links() }}
+					{{$amenties->links() }}
 				</div>
 				<div class="table-information">
-					<span class="info">Displaying {{$categories->lastItem()}} of {{$categories->total()}} records</span>
+					<span class="info">Displaying {{$amenties->lastItem()}} of {{$amenties->total()}} records</span>
 				</div>
 			@endif
 		</div>

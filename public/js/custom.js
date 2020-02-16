@@ -120,4 +120,27 @@ jQuery(document).ready(function() {
         });
     });
 
+    $(document).on('change','.city_show_nav',function(){
+        var value = 0;
+        const id = $(this).data('id');
+
+        if($(this).prop('checked') === true){
+            value = 1;
+        }
+        $.ajax({
+            url: ajaxUrl+'city_show_nav',
+            method: 'POST',
+            data: {id:id,value:value},
+            cache: false,
+            success: function(data) {
+                if(data.status){
+                    toastr.success("Status Change");
+                }
+            },
+            error: function(data) {
+                console.log(data)
+            }
+        });
+    });
+
 });

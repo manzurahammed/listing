@@ -99,9 +99,10 @@ jQuery(document).ready(function() {
     });
 
     $(document).on('change','.show_nav',function(){
-        var value = 0;
-        var id = $(this).data('id');
-        if($(this).prop('checked') == true){
+        let value = 0;
+        const id = $(this).data('id');
+        consolo.log(12);
+        if($(this).prop('checked') === true){
             value = 1;
         }
         $.ajax({
@@ -119,8 +120,7 @@ jQuery(document).ready(function() {
             }
         });
     });
-	
-	
+
 	$(document).on('change','.page-status',function(){
         var value = 0;
         var id = $(this).data('id');

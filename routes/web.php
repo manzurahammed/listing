@@ -16,6 +16,8 @@ Route::get('/', 'DashBoardController@index')->name('home');
 Route::group(['middleware' => 'auth'], function () {
 	Route::resources([
 	    'categories' => 'CategoryController',
+	    'cities' => 'CityController',
+	    'amenties' => 'AmentiesController',
 	    'papersize' => 'PaperSizeController',
 	    'users' => 'UserController',
 	    'pages' => 'PageController',
@@ -25,6 +27,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('/catpaper', 'CatPaperController@store');
 	Route::post('/getpaperlisrt', 'CatPaperController@paperlist');
 	Route::post('/show_nav', 'CategoryController@show_nav');
+	Route::post('/city_show_nav', 'CityController@city_show_nav');
 	Route::post('/updatestatus', 'UserController@updatestatus');
 	Route::get('/logout', 'UserController@logout');
 	Route::get('/profile', 'UserController@profile');
