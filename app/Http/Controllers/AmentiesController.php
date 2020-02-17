@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Validator;
 Use Auth;
-use Illuminate\Support\Facades\File;
 use App\Models\Amenties;
 
 class AmentiesController extends Controller

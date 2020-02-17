@@ -13,6 +13,7 @@
 
 Auth::routes();
 Route::get('/', 'DashBoardController@index')->name('home');
+Route::get('/listing', 'frontend\DashBoardController@index');
 Route::group(['middleware' => 'auth'], function () {
 	Route::resources([
 	    'categories' => 'CategoryController',
