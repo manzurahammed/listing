@@ -13,7 +13,18 @@
 
 Auth::routes();
 Route::get('/', 'DashBoardController@index')->name('home');
-Route::get('/listing', 'frontend\DashBoardController@index');
+Route::prefix('listing')->group(function () {
+	Route::get('/', 'frontend\DashBoardController@index');
+	Route::get('/profile', 'frontend\DashBoardController@editProfile');
+	Route::get('/listings', 'frontend\DashBoardController@listings');
+	Route::get('/active', 'frontend\DashBoardController@active');
+	Route::get('/pending', 'frontend\DashBoardController@pending');
+	Route::get('/expired', 'frontend\DashBoardController@expired');
+	Route::get('/add', 'frontend\DashBoardController@addListing');
+	Route::get('/bookmarked', 'frontend\DashBoardController@bookmarked');
+	Route::get('/review', 'frontend\DashBoardController@review');
+});
+
 Route::group(['middleware' => 'auth'], function () {
 	Route::resources([
 	    'categories' => 'CategoryController',

@@ -12,7 +12,11 @@ class DashboardController extends Controller {
 	 * @return Response
 	 */
 	public function index () {
-		return view( 'frontend.dashboard.main' );
+		return view( 'frontend.dashboard.dashboard' );
+	}
+	
+	public function editProfile () {
+		return view( 'frontend.dashboard.profile' );
 	}
 	
 }
