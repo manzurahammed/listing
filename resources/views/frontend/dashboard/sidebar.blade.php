@@ -26,7 +26,7 @@
             </ul>
         </li>
         <li class="navigation-item">
-            <a href="dashboard-add-listing.html"><i class="fas fa-plus-circle"></i>Add Listing</a>
+            <a href="{{url("/listing/add")}}"><i class="fas fa-plus-circle"></i>Add Listing</a>
         </li>
         <li class="navigation-item">
             <a href="bookmarked.html"><i class="fas fa-heart"></i>Bookmarked</a>

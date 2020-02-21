@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
+
 class DashboardController extends Controller {
 	
 	

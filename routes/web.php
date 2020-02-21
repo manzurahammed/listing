@@ -20,7 +20,7 @@ Route::prefix('listing')->group(function () {
 	Route::get('/active', 'frontend\DashBoardController@active');
 	Route::get('/pending', 'frontend\DashBoardController@pending');
 	Route::get('/expired', 'frontend\DashBoardController@expired');
-	Route::get('/add', 'frontend\DashBoardController@addListing');
+	Route::get('/add', 'frontend\ListingController@addListing');
 	Route::get('/bookmarked', 'frontend\DashBoardController@bookmarked');
 	Route::get('/review', 'frontend\DashBoardController@review');
 });

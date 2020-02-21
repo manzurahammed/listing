@@ -37,6 +37,19 @@ INSERT INTO `amenties` (`id`, `name`, `created_at`, `updated_at`, `deleted_at`) 
 	(24, 'kjk', '2020-02-16 18:12:55', '2020-02-16 18:12:55', NULL);
 /*!40000 ALTER TABLE `amenties` ENABLE KEYS */;
 
+-- Dumping structure for table admin_paper_size.bookmarked
+CREATE TABLE IF NOT EXISTS `bookmarked` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `listing_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Dumping data for table admin_paper_size.bookmarked: ~0 rows (approximately)
+DELETE FROM `bookmarked`;
+/*!40000 ALTER TABLE `bookmarked` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bookmarked` ENABLE KEYS */;
+
 -- Dumping structure for table admin_paper_size.categories
 CREATE TABLE IF NOT EXISTS `categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -162,6 +175,67 @@ INSERT INTO `city` (`id`, `name`, `slug`, `image`, `show_nav`, `created_at`, `up
 	(23, 'lol', 'lol', 'image1575332979.jpg', 0, '2020-02-16 16:59:46', '2020-02-16 17:04:29', NULL),
 	(24, 'sdgsdg pass', 'sdgsdg-pass', NULL, 0, '2020-02-16 18:11:55', '2020-02-16 18:11:55', NULL);
 /*!40000 ALTER TABLE `city` ENABLE KEYS */;
+
+-- Dumping structure for table admin_paper_size.listing
+CREATE TABLE IF NOT EXISTS `listing` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `cat_id` int(11) NOT NULL,
+  `email` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `phone` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `latitude` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `longitude` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `status` varchar(50) COLLATE utf8_unicode_ci DEFAULT '0',
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  `website` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `city_id` int(11) NOT NULL,
+  `description` text COLLATE utf8_unicode_ci,
+  `video_url` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `social` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `validation_date` date DEFAULT NULL,
+  `feature_image` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `image_gallery` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_by` int(11) NOT NULL,
+  `update_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `cat_id` (`cat_id`),
+  KEY `city_id` (`city_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Dumping data for table admin_paper_size.listing: ~0 rows (approximately)
+DELETE FROM `listing`;
+/*!40000 ALTER TABLE `listing` DISABLE KEYS */;
+/*!40000 ALTER TABLE `listing` ENABLE KEYS */;
+
+-- Dumping structure for table admin_paper_size.listing_amenities
+CREATE TABLE IF NOT EXISTS `listing_amenities` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `listing_id` int(11) NOT NULL,
+  `amenities_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Dumping data for table admin_paper_size.listing_amenities: ~0 rows (approximately)
+DELETE FROM `listing_amenities`;
+/*!40000 ALTER TABLE `listing_amenities` DISABLE KEYS */;
+/*!40000 ALTER TABLE `listing_amenities` ENABLE KEYS */;
+
+-- Dumping structure for table admin_paper_size.listing_business_hour
+CREATE TABLE IF NOT EXISTS `listing_business_hour` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `day` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `start_time` time NOT NULL,
+  `end_time` time NOT NULL,
+  `close` tinyint(4) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Dumping data for table admin_paper_size.listing_business_hour: ~0 rows (approximately)
+DELETE FROM `listing_business_hour`;
+/*!40000 ALTER TABLE `listing_business_hour` DISABLE KEYS */;
+/*!40000 ALTER TABLE `listing_business_hour` ENABLE KEYS */;
 
 -- Dumping structure for table admin_paper_size.migrations
 CREATE TABLE IF NOT EXISTS `migrations` (
@@ -544,6 +618,21 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
 DELETE FROM `password_resets`;
 /*!40000 ALTER TABLE `password_resets` DISABLE KEYS */;
 /*!40000 ALTER TABLE `password_resets` ENABLE KEYS */;
+
+-- Dumping structure for table admin_paper_size.review
+CREATE TABLE IF NOT EXISTS `review` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `title` int(11) DEFAULT NULL,
+  `description` int(11) DEFAULT NULL,
+  `rating` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Dumping data for table admin_paper_size.review: ~0 rows (approximately)
+DELETE FROM `review`;
+/*!40000 ALTER TABLE `review` DISABLE KEYS */;
+/*!40000 ALTER TABLE `review` ENABLE KEYS */;
 
 -- Dumping structure for table admin_paper_size.setting
 CREATE TABLE IF NOT EXISTS `setting` (
