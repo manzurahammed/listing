@@ -21,6 +21,7 @@ Route::prefix('listing')->group(function () {
 	Route::get('/pending', 'frontend\DashBoardController@pending');
 	Route::get('/expired', 'frontend\DashBoardController@expired');
 	Route::get('/add', 'frontend\ListingController@addListing');
+	Route::post('/savelisting', 'frontend\ListingController@savelisting');
 	Route::get('/bookmarked', 'frontend\DashBoardController@bookmarked');
 	Route::get('/review', 'frontend\DashBoardController@review');
 });

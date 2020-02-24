@@ -5,48 +5,44 @@
     <div class="col-lg-9 order-lg-2">
         <div class="dashboard-section dashboard-add-listing">
             <div class="dashboard-section-body">
-                <form action="#" class="post-listing">
+                {{Form::open(['url' => 'listing/savelisting', 'method' => 'post','files' => true,'class'=>'post-listing'])}}
                     <div class="form-field basic-field">
                         <h4>Basic Informations</h4>
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label>Listing Title *</label>
-                                    <input type="text" class="form-control" placeholder="Ex: Golden Restuarant">
+                                    <label>Listing Title</label>
+                                    <input type="text" name="title" value="{{old('title')}}" class="form-control" placeholder="Ex: Golden Restuarant">
                                 </div>
                                 <div class="form-group">
-                                    <label>Category *</label>
-                                    <select class="form-control select-category" id="select-category">
-                                        <option value="">Hotel & Restuarant</option>
-                                        <option value="">Beauty & Spa</option>
-                                        <option value="">Health & Medical</option>
-                                        <option value="">Real Estate</option>
-                                        <option value="">Food & Hotel</option>
-                                        <option value="">Travel</option>
-                                    </select>
+                                    <label>Contact Email</label>
+                                    <input type="email" name="email" value="{{old('email')}}" class="form-control" placeholder="Ex: info@example.com">
                                 </div>
                                 <div class="form-group">
-                                    <label>Contact Email *</label>
-                                    <input type="email" class="form-control" placeholder="Ex: info@example.com">
-                                </div>
-                                <div class="form-group">
-                                    <label>Phone No *</label>
-                                    <input type="text" class="form-control" placeholder="222-333-3232">
+                                    <label>Location (Latitude)</label>
+                                    <input type="text" name="latitude" value="{{old('latitude')}}" class="form-control" placeholder="http://">
                                 </div>
                                 <div class="form-group">
                                     <label>Website</label>
-                                    <input type="text" class="form-control" placeholder="http://">
+                                    <input type="text" name="website" value="{{old('website')}}" class="form-control" placeholder="http://">
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                <div class="cp-map listing-mark" id="location" data-lat="40.713355" data-lng="-74.005535" data-zoom="10"></div>
                                 <div class="form-group">
-                                    <label>Location (Full Address) *</label>
-                                    <input type="text" class="form-control" placeholder="Find your place in Google map">
+                                    <label>Category *</label>
+                                    {{Form::select('cat_id', $categories,old('cat_id'),['class'=>'form-control select-category','id'=>'select-category'])}}
                                 </div>
                                 <div class="form-group">
-                                    <label>Region *</label>
-                                    <input type="text" class="form-control" placeholder="Select your listing region">
+                                    <label>Phone No </label>
+                                    <input type="text" name="phone" value="{{old('phone')}}" class="form-control" placeholder="222-333-3232">
+                                </div>
+                                <div class="form-group">
+                                    <label>Location (Longitude)</label>
+                                    <input type="text" name="longitude" value="{{old('longitude')}}" class="form-control" placeholder="Find your place in Google map">
+                                </div>
+                                <div class="form-group">
+                                    <label>Region</label>
+                                    {{Form::select('city_id', $cities,old('city_id'),['class'=>'form-control select-category','id'=>'select-category'])}}
                                 </div>
                             </div>
                         </div>
@@ -56,76 +52,48 @@
                         <h4>Details Informations</h4>
                         <div class="form-group">
                             <label>Description *</label>
-                            <textarea class="form-control description-box"></textarea>
+                            <textarea name="description" class="form-control description-box">{{old('description')}}</textarea>
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Your Business video</label>
-                                    <input type="text" class="form-control" placeholder="Youtube Video URL">
+                                    <input type="text" name="video_url" value="{{old('video_url')}}" class="form-control" placeholder="Youtube Video URL">
                                 </div>
 
                             </div>
                             <div class="col-lg-6">
                                 <div class="amenities-block">
                                     <h5>Amenities</h5>
-                                    <div class="amenities">
-                                        <input type="checkbox" checked name="check" id="check1" class="checkbox">
-                                        <label for="check1">
-                                            <span></span> Free Wifi
-                                        </label>
-                                    </div>
-                                    <div class="amenities">
-                                        <input type="checkbox" name="check" id="check2" class="checkbox">
-                                        <label for="check2">
-                                            <span></span> Free Parking
-                                        </label>
-                                    </div>
-                                    <div class="amenities">
-                                        <input type="checkbox" name="check" id="check3" class="checkbox">
-                                        <label for="check3">
-                                            <span></span> Child Zone
-                                        </label>
-                                    </div>
-                                    <div class="amenities">
-                                        <input type="checkbox" name="check" id="check4" class="checkbox">
-                                        <label for="check4">
-                                            <span></span>  Air Conditioned
-                                        </label>
-                                    </div>
-                                    <div class="amenities">
-                                        <input type="checkbox" name="check" id="check5" class="checkbox">
-                                        <label for="check5">
-                                            <span></span> Sport Zone
-                                        </label>
-                                    </div>
-                                    <div class="amenities">
-                                        <input type="checkbox" name="check" id="check6" class="checkbox">
-                                        <label for="check6">
-                                            <span></span> Music
-                                        </label>
-                                    </div>
+                                    @foreach ($amenities as $item)
+                                        <div class="amenities">
+                                            {{Form::checkbox('amenities[]', $item->id,old('amenities'),['id'=>$item->id,'class'=>'checkbox'])}}
+                                            <label for="{{$item->id}}">
+                                                <span></span> {{$item->name}}
+                                            </label>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <span class="label-cover">Company Logo *</span>
+                                    <span class="label-cover">Feature Image</span>
                                     <label class="upload-file">
-                                        <input type="file">
+                                        <input accept="image/*" name="feature_image" type="file">
                                         <i class="far fa-image"></i>
-                                        <span>Click here or drop file to upload</span>
+                                        <span>Click here to upload file</span>
                                     </label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <span class="label-cover">Cover Photo *</span>
+                                    <span class="label-cover">Gallery Image</span>
                                     <label class="upload-file">
-                                        <input type="file">
+                                        <input name="gallery_image[]" accept="image/*" multiple type="file">
                                         <i class="far fa-image"></i>
-                                        <span>Click here or drop file to upload</span>
+                                        <span>Click here to upload file</span>
                                     </label>
                                 </div>
                             </div>
@@ -134,7 +102,7 @@
                             <h5>Social Networks</h5>
                             <div class="social-network-block">
                                 <div class="form-group">
-                                    <select class="form-control add-social-link">
+                                    <select name="social_icon[]" class="form-control add-social-link">
                                         <option value="">Select Network</option>
                                         <option value="">Facebook</option>
                                         <option value="">Twitter</option>
@@ -144,27 +112,12 @@
                                         <option value="">Pinterest</option>
                                         <option value="">Reddit</option>
                                     </select>
-                                    <input type="text" placeholder="Enter Link" class="form-control social-link-input">
+                                    <input type="text" name="social_url[]" placeholder="Enter Link" class="form-control social-link-input">
                                     <div class="delete">
                                         <i class="far fa-trash-alt"></i>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <select class="form-control add-social-link">
-                                        <option value="">Select Network</option>
-                                        <option value="">Facebook</option>
-                                        <option value="">Twitter</option>
-                                        <option value="">Linkedin</option>
-                                        <option value="">Google Plus</option>
-                                        <option value="">Instagram</option>
-                                        <option value="">Pinterest</option>
-                                        <option value="">Reddit</option>
-                                    </select>
-                                    <input type="text" placeholder="Enter Link" class="form-control social-link-input">
-                                    <div class="delete">
-                                        <i class="far fa-trash-alt"></i>
-                                    </div>
-                                </div>
+
                             </div>
                             <a href="#" class="button add-field-button">Add</a>
                         </div>
@@ -188,48 +141,19 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @foreach($days as $day)
                                 <tr>
-                                    <td>Monday</td>
-                                    <td><input type="text" class="set-time"></td>
-                                    <td><input type="text" class="set-time"></td>
-                                    <td><label for="monday"><input id="monday" type="checkbox"><span></span></label></td>
+                                    <td>{{$day}}</td>
+                                    <td><input name="start_time[]" type="text" class="set-time"></td>
+                                    <td><input name="end_time[]" type="text" class="set-time"></td>
+                                    <td>
+                                        <label for="{{$day}}">
+                                            {{Form::checkbox('working_day[]', $day,'',['id'=>$day])}}
+                                            <span></span>
+                                        </label>
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <td>Tuesday</td>
-                                    <td><input type="text" class="set-time"></td>
-                                    <td><input type="text" class="set-time"></td>
-                                    <td><label for="tuesday"><input id="tuesday" type="checkbox" checked><span></span></label></td>
-                                </tr>
-                                <tr>
-                                    <td>Wednesday</td>
-                                    <td><input type="text" class="set-time"></td>
-                                    <td><input type="text" class="set-time"></td>
-                                    <td><label for="wednesday"><input id="wednesday" type="checkbox"><span></span></label></td>
-                                </tr>
-                                <tr>
-                                    <td>Thursday</td>
-                                    <td><input type="text" class="set-time"></td>
-                                    <td><input type="text" class="set-time"></td>
-                                    <td><label for="thursday"><input id="thursday" type="checkbox"><span></span></label></td>
-                                </tr>
-                                <tr>
-                                    <td>Friday</td>
-                                    <td><input type="text" class="set-time"></td>
-                                    <td><input type="text" class="set-time"></td>
-                                    <td><label for="friday"><input id="friday" type="checkbox"><span></span></label></td>
-                                </tr>
-                                <tr>
-                                    <td>Saturday</td>
-                                    <td><input type="text" class="set-time"></td>
-                                    <td><input type="text" class="set-time"></td>
-                                    <td><label for="saturday"><input id="saturday" type="checkbox"><span></span></label></td>
-                                </tr>
-                                <tr>
-                                    <td>Sunday</td>
-                                    <td><input type="text" class="set-time"></td>
-                                    <td><input type="text" class="set-time"></td>
-                                    <td><label for="sunday"><input id="sunday" type="checkbox"><span></span></label></td>
-                                </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -238,8 +162,8 @@
                         <button class="button">Save &amp; Preview</button>
                         <p>You must be <span>logged in</span> to add products.</p>
                     </div>
-                </form>
-            </div>
+                {{Form::close()}}
         </div>
     </div>
+</div>
 @endsection
