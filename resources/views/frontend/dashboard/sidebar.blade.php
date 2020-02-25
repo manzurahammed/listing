@@ -1,3 +1,4 @@
+
 <div class="lst-dash-user-profile">
     <div class="thumb">
         <img src="{{ asset('images/frontend/dash-author.jpg') }}" class="img-fluid" alt="">
@@ -8,6 +9,7 @@
         <span class="pro"><i class="fas fa-bookmark"></i>Pro User</span>
     </div>
 </div>
+
 <div class="lst-dash-side-nav">
     <ul class="dashboard-nav" id="dashboard-nav">
         <li class="navigation-item">

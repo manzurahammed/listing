@@ -2,7 +2,8 @@
 
 @section('dashboard')
 
-    <div class="col-lg-9 order-lg-2">
+
+
         <div class="dashboard-section dashboard-add-listing">
             <div class="dashboard-section-body">
                 {{Form::open(['url' => 'listing/savelisting', 'method' => 'post','files' => true,'class'=>'post-listing'])}}
@@ -12,15 +13,15 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Listing Title</label>
-                                    <input type="text" name="title" value="{{old('title')}}" class="form-control" placeholder="Ex: Golden Restuarant">
+                                    <input type="text" required name="title" value="{{old('title')}}" class="form-control" placeholder="Ex: Golden Restuarant">
                                 </div>
                                 <div class="form-group">
                                     <label>Contact Email</label>
-                                    <input type="email" name="email" value="{{old('email')}}" class="form-control" placeholder="Ex: info@example.com">
+                                    <input type="email" required name="email" value="{{old('email')}}" class="form-control" placeholder="Ex: info@example.com">
                                 </div>
                                 <div class="form-group">
                                     <label>Location (Latitude)</label>
-                                    <input type="text" name="latitude" value="{{old('latitude')}}" class="form-control" placeholder="http://">
+                                    <input type="text" required name="latitude" value="{{old('latitude')}}" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Website</label>
@@ -30,7 +31,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Category *</label>
-                                    {{Form::select('cat_id', $categories,old('cat_id'),['class'=>'form-control select-category','id'=>'select-category'])}}
+                                    {{Form::select('cat_id', $categories,old('cat_id'),['required'=>'required','class'=>'form-control select-category','id'=>'select-category'])}}
                                 </div>
                                 <div class="form-group">
                                     <label>Phone No </label>
@@ -38,11 +39,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Location (Longitude)</label>
-                                    <input type="text" name="longitude" value="{{old('longitude')}}" class="form-control" placeholder="Find your place in Google map">
+                                    <input type="text" required name="longitude" value="{{old('longitude')}}" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Region</label>
-                                    {{Form::select('city_id', $cities,old('city_id'),['class'=>'form-control select-category','id'=>'select-category'])}}
+                                    {{Form::select('city_id', $cities,old('city_id'),['required'=>'required','class'=>'form-control select-category','id'=>'select-category'])}}
                                 </div>
                             </div>
                         </div>
@@ -165,5 +166,4 @@
                 {{Form::close()}}
         </div>
     </div>
-</div>
 @endsection

@@ -23,7 +23,32 @@
 <div class="grey-bg-2 padding-bottom-90">
     <div class="container">
         <div class="row">
-            @yield('dashboard')
+            <div class="col-lg-9 order-lg-2">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @if (Session::has('status'))
+                    @php ($status = Session::get('status'))
+                    @component('components.dashboardalert')
+                        @slot('type')
+                            {{$status['type']}}
+                        @endslot
+                        @slot('title')
+                            {{$status['title']}}
+                        @endslot
+                    @endcomponent
+                @endif
+                @if ($errors->any())
+                    @component('components.dashboarderrors')
+
+                    @endcomponent
+                @endif
+
+                @yield('dashboard')
+            </div>
             <div class="col-lg-3 order-lg-1">
                 @include('frontend.dashboard.sidebar')
             </div>
