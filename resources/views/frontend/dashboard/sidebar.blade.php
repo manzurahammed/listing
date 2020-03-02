@@ -34,15 +34,6 @@
             <a href="bookmarked.html"><i class="fas fa-heart"></i>Bookmarked</a>
         </li>
         <li class="navigation-item">
-            <a href="#"><i class="fas fa-check-square"></i>Booking</a>
-        </li>
-        <li class="navigation-item">
-            <a href="message.html"><i class="far fa-comment-alt"></i>Messages</a>
-        </li>
-        <li class="navigation-item">
-            <a href="dashboard-pricing.html"><i class="fas fa-bell"></i>Pricing Table</a>
-        </li>
-        <li class="navigation-item">
             <a href="review.html"><i class="fas fa-star"></i>Review</a>
         </li>
     </ul>
