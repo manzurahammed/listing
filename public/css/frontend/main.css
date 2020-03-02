@@ -6745,3 +6745,17 @@ header .nav-absolute {
     margin-left: 0;
   }
 }
+
+.listing-delete-form {
+  display: inline-block;
+}
+form.listing-delete-form .remove {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  border: 1px solid;
+  line-height: 40px;
+  text-align: center;
+  color: #f94877;
+  border-color: rgba(249, 72, 119, 0.3);
+}

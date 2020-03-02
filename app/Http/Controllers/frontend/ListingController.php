@@ -5,16 +5,25 @@ namespace App\Http\Controllers\frontend;
 
 use App\Models\Amenties;
 use App\Models\ListingTime;
+use App\Models\ListingAmenties;
 use App\Models\Listing;
+use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Categories;
 use App\Models\City;
-use Illuminate\Support\Facades\Log;
+//use Illuminate\Support\Facades\Log;
 use Validator;
 Use Auth;
 
 class ListingController extends Controller {
+	
+	public function viewListing () {
+		$listing = Listing::where( 'status',1 )->paginate(20);
+		return view( 'frontend.dashboard.listing' )->with( [
+			'listing' => $listing
+		] );
+	}
 	
 	public function addListing () {
 		
@@ -56,6 +65,7 @@ class ListingController extends Controller {
 			'status' => 0
 		];
 		
+		
 		if ( $request->hasFile( 'feature_image' ) ) {
 			$image = $request->file( 'feature_image' );
 			$imageName = 'feature_' . rand() . '.' . $image->getClientOriginalExtension();
@@ -77,16 +87,36 @@ class ListingController extends Controller {
 			$listing[ 'gallery_image' ] = json_encode( $gallery_images );
 		}
 		
+		$amenities = $request->get( 'amenities' );
+		$start_time = $request->get( 'start_time' );
+		$end_time = $request->get( 'end_time' );
+		$off_day = $request->get( 'off_day' );
+		$social_icon = $request->get( 'social_icon' );
+		$social_url = $request->get( 'social_url' );
+		$social = [];
+		
+		if(count($social_icon) === count($social_url)){
+			$social = array_combine( $social_icon, $social_url);
+		}
+		
+		
+		$listing['social'] = json_encode( $social );
 		$save = Listing::create( $listing );
 		
 		if ( $save ) {
-			$this->save_listing_time( $save->id, $request );
-			$this->save_listing_amenities( $save->id, $request );
+			
+			$this->save_listing_time( $save->id, $start_time, $start_time, $off_day);
+			$this->save_listing_amenities( $save->id, $amenities );
+			
 			$request->session()->flash( 'status', array( 'title' => 'Create New Listing', 'type' => 'success' ) );
 			return redirect( 'listing' );
 		}
 		$request->session()->flash( 'status', array( 'title' => 'Failed To Create Listing', 'type' => 'danger' ) );
 		return redirect( 'addListing' );
+	}
+	
+	public function deleteListing(){
+	
 	}
 	
 	public function getAllCategory () {
@@ -101,12 +131,51 @@ class ListingController extends Controller {
 		return $categories = Amenties::select( 'name', 'id' )->get();
 	}
 	
-	public function save_listing_time( $listing_id, $request ){
+	/**
+	 * @param $listing_id
+	 * @param $request
+	 * @return bool
+	 * @throws Exception
+	 */
+	public function save_listing_time( $listing_id, $start_time, $end_time, $off_day){
 		ListingTime::where('listing_id', $listing_id)->delete();
+		
+		$business_hour = [];
+		if(!empty($start_time)){
+			foreach ($start_time as $day_name => $time ){
+				 $day = [
+					'listing_id' => $listing_id,
+					'day' => $day_name,
+					'start_time' => $time,
+					'end_time' => $end_time[$day_name],
+					'close' => isset($off_day[$day_name])?1:0
+				];
+				$business_hour[] = $day;
+			}
+			return ListingTime::insert($business_hour);
+		}
+		return false;
 	}
 	
-	public function save_listing_amenities( $listing_id, $request ){
-		Amenties::where('listing_id', $listing_id )->delete();
+	/**
+	 * @param $listing_id
+	 * @param $amenities
+	 * @return bool
+	 * @throws Exception
+	 */
+	public function save_listing_amenities( $listing_id, $amenities ){
+		ListingAmenties::where('listing_id', $listing_id )->delete();
+		if(!empty( $amenities )) {
+			$data = [];
+			foreach($amenities as $amenitie ) {
+				$data[] = [
+					'listing_id' => $listing_id,
+					'amenities_id' => $amenitie,
+				];
+			}
+			return ListingAmenties::insert($data);
+		}
+		return false;
 	}
 	
 }

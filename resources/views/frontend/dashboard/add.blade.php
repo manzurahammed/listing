@@ -105,13 +105,11 @@
                                 <div class="form-group">
                                     <select name="social_icon[]" class="form-control add-social-link">
                                         <option value="">Select Network</option>
-                                        <option value="">Facebook</option>
-                                        <option value="">Twitter</option>
-                                        <option value="">Linkedin</option>
-                                        <option value="">Google Plus</option>
-                                        <option value="">Instagram</option>
-                                        <option value="">Pinterest</option>
-                                        <option value="">Reddit</option>
+                                        <option value="facebook">Facebook</option>
+                                        <option value="twitter">Twitter</option>
+                                        <option value="linkedin">Linkedin</option>
+                                        <option value="instagram">Instagram</option>
+                                        <option value="pinterest">Pinterest</option>
                                     </select>
                                     <input type="text" name="social_url[]" placeholder="Enter Link" class="form-control social-link-input">
                                     <div class="delete">
@@ -145,11 +143,14 @@
                                 @foreach($days as $day)
                                 <tr>
                                     <td>{{$day}}</td>
-                                    <td><input name="start_time[]" type="text" class="set-time"></td>
-                                    <td><input name="end_time[]" type="text" class="set-time"></td>
+                                    <td>
+                                        {{Form::text('start_time['.$day.']','',['class'=>'set-time'])}}
+                                    <td>
+                                        {{Form::text('end_time['.$day.']','',['class'=>'set-time'])}}
+                                    </td>
                                     <td>
                                         <label for="{{$day}}">
-                                            {{Form::checkbox('working_day[]', $day,'',['id'=>$day])}}
+                                            {{Form::checkbox('off_day['.$day.']', $day,'',['id'=>$day])}}
                                             <span></span>
                                         </label>
                                     </td>

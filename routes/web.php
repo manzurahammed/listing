@@ -16,7 +16,7 @@ Route::get('/', 'DashBoardController@index')->name('home');
 Route::prefix('listing')->group(function () {
 	Route::get('/', 'frontend\DashBoardController@index');
 	Route::get('/profile', 'frontend\DashBoardController@editProfile');
-	Route::get('/listings', 'frontend\DashBoardController@listings');
+	Route::get('/all_listing', 'frontend\ListingController@viewListing');
 	Route::get('/active', 'frontend\DashBoardController@active');
 	Route::get('/pending', 'frontend\DashBoardController@pending');
 	Route::get('/expired', 'frontend\DashBoardController@expired');
@@ -24,6 +24,7 @@ Route::prefix('listing')->group(function () {
 	Route::post('/savelisting', 'frontend\ListingController@savelisting');
 	Route::get('/bookmarked', 'frontend\DashBoardController@bookmarked');
 	Route::get('/review', 'frontend\DashBoardController@review');
+	Route::delete('/delete/{id}',array('uses' => 'frontend\ListingController@deleteListing', 'as' => 'listing.delete'));
 });
 
 Route::group(['middleware' => 'auth'], function () {

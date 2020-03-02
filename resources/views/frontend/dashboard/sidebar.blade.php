@@ -21,7 +21,7 @@
         <li class="navigation-item dropdown">
             <a href="#"><i class="fas fa-bolt"></i>My Listing</a>
             <ul class="dropdown-menu">
-                <li><a href="all-listing.html">All Listing</a></li>
+                <li><a href="{{url("/listing/all_listing")}}">All Listing</a></li>
                 <li><a href="all-listing.html">Active Listing</a></li>
                 <li><a href="all-listing.html">Pending Listing</a></li>
                 <li><a href="all-listing.html">Expired Listing</a></li>
