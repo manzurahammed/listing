@@ -29,7 +29,9 @@ class ListingController extends Controller
     
     public function activeListing()
     {
-        $listing = Listing::where( 'status', 1 )->paginate( 20 );
+        $listing = Listing::where( 'status', 1 )
+            ->whereDate( 'validation_date', '>=', date( 'Y-m-d' ) )
+            ->paginate( 20 );
         return view( 'frontend.dashboard.active_listing' )->with( [
             'listing' => $listing
         ] );
@@ -45,7 +47,8 @@ class ListingController extends Controller
     
     public function expiredListing()
     {
-        $listing = Listing::where( 'status', 1 )->paginate( 20 );
+        $listing = Listing::whereDate( 'validation_date', '<', date( 'Y-m-d' ) )
+            ->paginate( 20 );
         return view( 'frontend.dashboard.expired_listing' )->with( [
             'listing' => $listing
         ] );
@@ -60,7 +63,21 @@ class ListingController extends Controller
             'categories' => $this->getAllCategory(),
             'cities'     => $this->getAllCity(),
             'amenities'  => $this->getAmenities(),
-            'days'       => $days
+            'days'       => $days,
+        
+        ] );
+    }
+    
+    public function editListing( $id )
+    {
+        $days = ['saturday', 'sunday', 'monday', 'Tuesday', 'wednesday', 'thursday', 'friday'];
+        
+        return view( 'frontend.dashboard.edit' )->with( [
+            'categories' => $this->getAllCategory(),
+            'cities'     => $this->getAllCity(),
+            'amenities'  => $this->getAmenities(),
+            'days'       => $days,
+            'listing'    => Listing::find( $id )
         ] );
     }
     

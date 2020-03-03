@@ -8,7 +8,7 @@
             <div class="dashboard-section-body">
                 {{Form::open(['url' => 'listing/savelisting', 'method' => 'post','files' => true,'class'=>'post-listing'])}}
                     <div class="form-field basic-field">
-                        <h4>Add Listing Information</h4>
+                        <h4>Edit Listing Information</h4>
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
