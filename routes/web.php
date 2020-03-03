@@ -17,9 +17,9 @@ Route::prefix('listing')->group(function () {
 	Route::get('/', 'frontend\DashBoardController@index');
 	Route::get('/profile', 'frontend\DashBoardController@editProfile');
 	Route::get('/all_listing', 'frontend\ListingController@viewListing');
-	Route::get('/active', 'frontend\DashBoardController@active');
-	Route::get('/pending', 'frontend\DashBoardController@pending');
-	Route::get('/expired', 'frontend\DashBoardController@expired');
+	Route::get('/active_listing', 'frontend\ListingController@activeListing');
+	Route::get('/pending_listing', 'frontend\ListingController@pendingListing');
+	Route::get('/expired_listing', 'frontend\ListingController@expiredListing');
 	Route::get('/add', 'frontend\ListingController@addListing');
 	Route::post('/savelisting', 'frontend\ListingController@savelisting');
 	Route::get('/bookmarked', 'frontend\DashBoardController@bookmarked');

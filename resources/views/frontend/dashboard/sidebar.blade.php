@@ -22,9 +22,9 @@
             <a href="#"><i class="fas fa-bolt"></i>My Listing</a>
             <ul class="dropdown-menu">
                 <li><a href="{{url("/listing/all_listing")}}">All Listing</a></li>
-                <li><a href="all-listing.html">Active Listing</a></li>
-                <li><a href="all-listing.html">Pending Listing</a></li>
-                <li><a href="all-listing.html">Expired Listing</a></li>
+                <li><a href="{{url("/listing/active_listing")}}">Active Listing</a></li>
+                <li><a href="{{url("/listing/pending_listing")}}">Pending Listing</a></li>
+                <li><a href="{{url("/listing/expired_listing")}}">Expired Listing</a></li>
             </ul>
         </li>
         <li class="navigation-item">
