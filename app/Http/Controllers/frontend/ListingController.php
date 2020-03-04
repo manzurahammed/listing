@@ -54,6 +54,22 @@ class ListingController extends Controller
         ] );
     }
     
+    public function bookmarked(){
+        $listing = Listing::whereDate( 'validation_date', '<', date( 'Y-m-d' ) )
+            ->paginate( 20 );
+        return view( 'frontend.dashboard.bookmarked' )->with( [
+            'listing' => $listing
+        ] );
+    }
+    
+    public function review(){
+        $listing = Listing::whereDate( 'validation_date', '<', date( 'Y-m-d' ) )
+            ->paginate( 20 );
+        return view( 'frontend.dashboard.bookmarked' )->with( [
+            'listing' => $listing
+        ] );
+    }
+    
     public function addListing()
     {
         

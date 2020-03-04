@@ -23,8 +23,8 @@ Route::prefix('listing')->group(function () {
 	Route::get('/add', 'frontend\ListingController@addListing');
 	Route::get('/{id}/edit', 'frontend\ListingController@editListing');
 	Route::post('/savelisting', 'frontend\ListingController@savelisting');
-	Route::get('/bookmarked', 'frontend\DashBoardController@bookmarked');
-	Route::get('/review', 'frontend\DashBoardController@review');
+	Route::get('/bookmarked', 'frontend\ListingController@bookmarked');
+	Route::get('/review', 'frontend\ListingController@review');
 	Route::delete('/delete/{id}',array('uses' => 'frontend\ListingController@deleteListing', 'as' => 'listing.delete'));
 });
 
