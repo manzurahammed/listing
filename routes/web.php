@@ -26,6 +26,7 @@ Route::prefix('listing')->group(function () {
 	Route::get('/bookmarked', 'frontend\ListingController@bookmarked');
 	Route::get('/review', 'frontend\ListingController@review');
 	Route::delete('/delete/{id}',array('uses' => 'frontend\ListingController@deleteListing', 'as' => 'listing.delete'));
+	Route::put('/store/{id}',array('uses' => 'frontend\ListingController@updateListing', 'as' => 'listing.update'));
 });
 
 Route::group(['middleware' => 'auth'], function () {

@@ -6,44 +6,44 @@
 
         <div class="dashboard-section dashboard-add-listing">
             <div class="dashboard-section-body">
-                {{Form::open(['url' => 'listing/savelisting', 'method' => 'post','files' => true,'class'=>'post-listing'])}}
+                {!! Form::model($listing, ['route' => ['listing.update', $listing->id], 'method' => 'put','files' => true, 'class' => 'post-listing']) !!}
                     <div class="form-field basic-field">
                         <h4>Edit Listing Information</h4>
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Listing Title</label>
-                                    <input type="text" required name="title" value="{{old('title')}}" class="form-control" placeholder="Ex: Golden Restuarant">
+                                    <input type="text" required name="title" value="{{$listing->title}}" class="form-control" placeholder="Ex: Golden Restuarant">
                                 </div>
                                 <div class="form-group">
                                     <label>Contact Email</label>
-                                    <input type="email" required name="email" value="{{old('email')}}" class="form-control" placeholder="Ex: info@example.com">
+                                    <input type="email" required name="email" value="{{$listing->email}}" class="form-control" placeholder="Ex: info@example.com">
                                 </div>
                                 <div class="form-group">
                                     <label>Location (Latitude)</label>
-                                    <input type="text" required name="latitude" value="{{old('latitude')}}" class="form-control">
+                                    <input type="text" required name="latitude" value="{{$listing->latitude}}" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Website</label>
-                                    <input type="text" name="website" value="{{old('website')}}" class="form-control" placeholder="http://">
+                                    <input type="text" name="website" value="{{$listing->website}}" class="form-control" placeholder="http://">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Category *</label>
-                                    {{Form::select('cat_id', $categories,old('cat_id'),['required'=>'required','class'=>'form-control select-category','id'=>'select-category'])}}
+                                    {{Form::select('cat_id', $categories,$listing->cat_id,['required'=>'required','class'=>'form-control select-category','id'=>'select-category'])}}
                                 </div>
                                 <div class="form-group">
                                     <label>Phone No </label>
-                                    <input type="text" name="phone" value="{{old('phone')}}" class="form-control" placeholder="222-333-3232">
+                                    <input type="text" name="phone" value="{{$listing->phone}}" class="form-control" placeholder="222-333-3232">
                                 </div>
                                 <div class="form-group">
                                     <label>Location (Longitude)</label>
-                                    <input type="text" required name="longitude" value="{{old('longitude')}}" class="form-control">
+                                    <input type="text" required name="longitude" value="{{$listing->longitude}}" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label>Region</label>
-                                    {{Form::select('city_id', $cities,old('city_id'),['required'=>'required','class'=>'form-control select-category','id'=>'select-category'])}}
+                                    {{Form::select('city_id', $cities,$listing->city_id,['required'=>'required','class'=>'form-control select-category','id'=>'select-category'])}}
                                 </div>
                             </div>
                         </div>
@@ -53,13 +53,13 @@
                         <h4>Details Informations</h4>
                         <div class="form-group">
                             <label>Description *</label>
-                            <textarea name="description" class="form-control description-box">{{old('description')}}</textarea>
+                            <textarea name="description" class="form-control description-box">{{$listing->description}}</textarea>
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Your Business video</label>
-                                    <input type="text" name="video_url" value="{{old('video_url')}}" class="form-control" placeholder="Youtube Video URL">
+                                    <input type="text" name="video_url" value="{{$listing->video_url}}" class="form-control" placeholder="Youtube Video URL">
                                 </div>
 
                             </div>
@@ -67,8 +67,9 @@
                                 <div class="amenities-block">
                                     <h5>Amenities</h5>
                                     @foreach ($amenities as $item)
+                                        <?php $check = in_array($item->id,$selected_amenities)?$item->id:''; ?>
                                         <div class="amenities">
-                                            {{Form::checkbox('amenities[]', $item->id,old('amenities'),['id'=>$item->id,'class'=>'checkbox'])}}
+                                            {{Form::checkbox('amenities[]', $item->id,$check,['id'=>$item->id,'class'=>'checkbox'])}}
                                             <label for="{{$item->id}}">
                                                 <span></span> {{$item->name}}
                                             </label>
@@ -101,23 +102,20 @@
                         </div>
                         <div class="social-networks">
                             <h5>Social Networks</h5>
-                            <div class="social-network-block">
-                                <div class="form-group">
-                                    <select name="social_icon[]" class="form-control add-social-link">
-                                        <option value="">Select Network</option>
-                                        <option value="facebook">Facebook</option>
-                                        <option value="twitter">Twitter</option>
-                                        <option value="linkedin">Linkedin</option>
-                                        <option value="instagram">Instagram</option>
-                                        <option value="pinterest">Pinterest</option>
-                                    </select>
-                                    <input type="text" name="social_url[]" placeholder="Enter Link" class="form-control social-link-input">
-                                    <div class="delete">
-                                        <i class="far fa-trash-alt"></i>
+                            @php ($socials = json_decode($listing->social))
+                            @foreach($socials as $key => $social_ling)
+
+                                <div class="social-network-block">
+                                    <div class="form-group">
+                                        {{Form::select('social_icon[]', $social_name,$key,['class'=>'form-control add-social-link'])}}
+                                        <input type="text" name="social_url[]" value="{{$social_ling}}" placeholder="Enter Link" class="form-control social-link-input">
+                                        <div class="delete">
+                                            <i class="far fa-trash-alt"></i>
+                                        </div>
                                     </div>
                                 </div>
+                            @endforeach
 
-                            </div>
                             <a href="#" class="button add-field-button">Add</a>
                         </div>
                     </div>

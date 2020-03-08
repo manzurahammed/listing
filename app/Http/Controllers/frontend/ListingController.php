@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Categories;
 use App\Models\City;
-//use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Log;
 use Validator;
 Use Auth;
 
@@ -54,7 +54,8 @@ class ListingController extends Controller
         ] );
     }
     
-    public function bookmarked(){
+    public function bookmarked()
+    {
         $listing = Listing::whereDate( 'validation_date', '<', date( 'Y-m-d' ) )
             ->paginate( 20 );
         return view( 'frontend.dashboard.bookmarked' )->with( [
@@ -62,7 +63,8 @@ class ListingController extends Controller
         ] );
     }
     
-    public function review(){
+    public function review()
+    {
         $listing = Listing::whereDate( 'validation_date', '<', date( 'Y-m-d' ) )
             ->paginate( 20 );
         return view( 'frontend.dashboard.bookmarked' )->with( [
@@ -87,14 +89,36 @@ class ListingController extends Controller
     public function editListing( $id )
     {
         $days = ['saturday', 'sunday', 'monday', 'Tuesday', 'wednesday', 'thursday', 'friday'];
+        $social_name = [
+            'facebook'  => 'facebook',
+            'twitter'   => 'twitter',
+            'linkedin'  => 'linkedin',
+            'instagram' => 'instagram',
+            'pinterest' => 'pinterest'
+        ];
         
         return view( 'frontend.dashboard.edit' )->with( [
-            'categories' => $this->getAllCategory(),
-            'cities'     => $this->getAllCity(),
-            'amenities'  => $this->getAmenities(),
-            'days'       => $days,
-            'listing'    => Listing::find( $id )
+            'categories'         => $this->getAllCategory(),
+            'cities'             => $this->getAllCity(),
+            'amenities'          => $this->getAmenities(),
+            'selected_amenities' => $this->getSelectedAmenities( $id ),
+            'days'               => $days,
+            'selected_time'      => $days,
+            'social_name'        => $social_name,
+            'listing'            => Listing::find( $id )
         ] );
+    }
+    
+    public function getSelectedAmenities( $id )
+    {
+        $data =  ListingAmenties::select( 'amenities_id' )->where( 'listing_id', $id )->get();
+        return array_pluck($data->toArray(),'amenities_id');
+        
+    }
+    
+    public function updateListing( Request $request, $id )
+    {
+        Log::info( $request->all() );
     }
     
     public function savelisting( Request $request )
