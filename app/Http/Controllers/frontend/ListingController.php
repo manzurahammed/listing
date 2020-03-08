@@ -118,7 +118,79 @@ class ListingController extends Controller
     
     public function updateListing( Request $request, $id )
     {
-        Log::info( $request->all() );
+        Validator::make( $request->all(), [
+            'title'         => 'required',
+            'email'         => 'required',
+            'latitude'      => 'required',
+            'longitude'     => 'required',
+            'cat_id'        => 'required',
+            'city_id'       => 'required'
+        ] )->validate();
+        
+        $Listing_data = Listing::find($id);
+    
+        $Listing_data->title =  $request->get( 'title' );
+        $Listing_data->email =  $request->get( 'email' );
+        $Listing_data->latitude =  $request->get( 'latitude' );
+        $Listing_data->longitude =  $request->get( 'longitude' );
+        $Listing_data->cat_id =  $request->get( 'cat_id' );
+        $Listing_data->city_id =  $request->get( 'city_id' );
+        $Listing_data->phone =  $request->get( 'phone' );
+        $Listing_data->phone =  $request->get( 'phone' );
+        $Listing_data->website =  $request->get( 'website' );
+        $Listing_data->description =  $request->get( 'description' );
+        $Listing_data->video_url =  $request->get( 'video_url' );
+        $Listing_data->update_by =  Auth::user()->id;
+        $Listing_data->validation_date =  date( 'Y-m-d', strtotime( "+7 day" ) );
+        $Listing_data->status =  0;
+    
+    
+        if ( $request->hasFile( 'feature_image' ) ) {
+            $image = $request->file( 'feature_image' );
+            $imageName = 'feature_' . rand() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path() . '/feature_image';
+            if ( $image->move( $destinationPath, $imageName ) ) {
+                $Listing_data->feature_image = $imageName;
+            }
+        }
+    
+        if ( $request->hasFile( 'gallery_image' ) ) {
+            $gallery_images = [];
+            foreach ( $request->file( 'gallery_image' ) as $file ) {
+                $imageName = 'gallery_' . rand() . '.' . $file->getClientOriginalExtension();
+                $destinationPath = public_path() . '/gallery_image';
+                if ( $file->move( $destinationPath, $imageName ) ) {
+                    $gallery_images[] = '/gallery_image/' . $imageName;
+                }
+            }
+            $Listing_data->gallery_image = json_encode( $gallery_images );
+        }
+    
+        $amenities = $request->get( 'amenities' );
+        $start_time = $request->get( 'start_time' );
+        $end_time = $request->get( 'end_time' );
+        $off_day = $request->get( 'off_day' );
+        $social_icon = $request->get( 'social_icon' );
+        $social_url = $request->get( 'social_url' );
+        $social = [];
+    
+        if ( count( $social_icon ) === count( $social_url ) ) {
+            $social = array_combine( $social_icon, $social_url );
+        }
+    
+    
+        $Listing_data->social = json_encode( $social );
+        
+        if ( $Listing_data->save() ) {
+        
+            $this->save_listing_time( $id, $start_time, $end_time, $off_day );
+            $this->save_listing_amenities( $id, $amenities );
+        
+            $request->session()->flash( 'status', ['title' => 'Update Listing', 'type' => 'success'] );
+            return redirect( 'listing/all_listing' );
+        }
+        $request->session()->flash( 'status', ['title' => 'Failed To Update Listing', 'type' => 'danger'] );
+        return redirect( 'listing/'.$id.'/edit' );
     }
     
     public function savelisting( Request $request )
@@ -191,7 +263,7 @@ class ListingController extends Controller
         
         if ( $save ) {
             
-            $this->save_listing_time( $save->id, $start_time, $start_time, $off_day );
+            $this->save_listing_time( $save->id, $start_time, $end_time, $off_day );
             $this->save_listing_amenities( $save->id, $amenities );
             
             $request->session()->flash( 'status', ['title' => 'Create New Listing', 'type' => 'success'] );
