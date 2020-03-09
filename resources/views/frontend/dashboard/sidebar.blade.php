@@ -4,7 +4,7 @@
         <img src="{{ asset('images/frontend/dash-author.jpg') }}" class="img-fluid" alt="">
     </div>
     <div class="profile-body">
-        <h4>Steve Aldridge</h4>
+        <h4>Manzur</h4>
         <span>@username</span>
         <span class="pro"><i class="fas fa-bookmark"></i>Pro User</span>
     </div>

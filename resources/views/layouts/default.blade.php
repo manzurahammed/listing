@@ -8,7 +8,7 @@
 		<!-- CSRF Token -->
 		<meta name="csrf-token" content="{{ csrf_token() }}">
 
-		<title>{{ config('app.name', 'Paper Size') }}</title>
+		<title>Listing</title>
 
 		<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Roboto:300,400,500,600,700" rel="stylesheet">
 		<link href="{{ asset('css/vendors.bundle.css') }}" rel="stylesheet">

@@ -8,7 +8,7 @@
                         <div class="logo">
                             <img src="{{ asset('images/frontend/footer-logo.png') }}" class="img-fluid" alt="">
                         </div>
-                        <p class="copyright-text">© 2019 <a href="#">Listereon</a>. By <a href="#">CodePassergers</a> All Rights Reserved</p>
+                        <p class="copyright-text">© 2019 <a href="#">Listereon</a>. By <a href="#">Manzur</a> All Rights Reserved</p>
                         <div class="social-links">
                             <a href="#"><i class="fab fa-facebook-f"></i></a>
                             <a href="#"><i class="fab fa-twitter"></i></a>
