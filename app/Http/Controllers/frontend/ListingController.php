@@ -103,7 +103,7 @@ class ListingController extends Controller
             'amenities'          => $this->getAmenities(),
             'selected_amenities' => $this->getSelectedAmenities( $id ),
             'days'               => $days,
-            'selected_time'      => $days,
+            'selected_time'      => $this->getSelectedTime( $id ),
             'social_name'        => $social_name,
             'listing'            => Listing::find( $id )
         ] );
@@ -111,40 +111,46 @@ class ListingController extends Controller
     
     public function getSelectedAmenities( $id )
     {
-        $data =  ListingAmenties::select( 'amenities_id' )->where( 'listing_id', $id )->get();
-        return array_pluck($data->toArray(),'amenities_id');
+        $data = ListingAmenties::select( 'amenities_id' )->where( 'listing_id', $id )->get();
+        return array_pluck( $data->toArray(), 'amenities_id' );
+        
+    }
+    
+    public function getSelectedTime( $id )
+    {
+        return ListingTime::select( 'day','start_time','end_time','close' )->where( 'listing_id', $id )->get();
         
     }
     
     public function updateListing( Request $request, $id )
     {
         Validator::make( $request->all(), [
-            'title'         => 'required',
-            'email'         => 'required',
-            'latitude'      => 'required',
-            'longitude'     => 'required',
-            'cat_id'        => 'required',
-            'city_id'       => 'required'
+            'title'     => 'required',
+            'email'     => 'required',
+            'latitude'  => 'required',
+            'longitude' => 'required',
+            'cat_id'    => 'required',
+            'city_id'   => 'required'
         ] )->validate();
         
-        $Listing_data = Listing::find($id);
-    
-        $Listing_data->title =  $request->get( 'title' );
-        $Listing_data->email =  $request->get( 'email' );
-        $Listing_data->latitude =  $request->get( 'latitude' );
-        $Listing_data->longitude =  $request->get( 'longitude' );
-        $Listing_data->cat_id =  $request->get( 'cat_id' );
-        $Listing_data->city_id =  $request->get( 'city_id' );
-        $Listing_data->phone =  $request->get( 'phone' );
-        $Listing_data->phone =  $request->get( 'phone' );
-        $Listing_data->website =  $request->get( 'website' );
-        $Listing_data->description =  $request->get( 'description' );
-        $Listing_data->video_url =  $request->get( 'video_url' );
-        $Listing_data->update_by =  Auth::user()->id;
-        $Listing_data->validation_date =  date( 'Y-m-d', strtotime( "+7 day" ) );
-        $Listing_data->status =  0;
-    
-    
+        $Listing_data = Listing::find( $id );
+        
+        $Listing_data->title = $request->get( 'title' );
+        $Listing_data->email = $request->get( 'email' );
+        $Listing_data->latitude = $request->get( 'latitude' );
+        $Listing_data->longitude = $request->get( 'longitude' );
+        $Listing_data->cat_id = $request->get( 'cat_id' );
+        $Listing_data->city_id = $request->get( 'city_id' );
+        $Listing_data->phone = $request->get( 'phone' );
+        $Listing_data->phone = $request->get( 'phone' );
+        $Listing_data->website = $request->get( 'website' );
+        $Listing_data->description = $request->get( 'description' );
+        $Listing_data->video_url = $request->get( 'video_url' );
+        $Listing_data->update_by = Auth::user()->id;
+        $Listing_data->validation_date = date( 'Y-m-d', strtotime( "+7 day" ) );
+        $Listing_data->status = 0;
+        
+        
         if ( $request->hasFile( 'feature_image' ) ) {
             $image = $request->file( 'feature_image' );
             $imageName = 'feature_' . rand() . '.' . $image->getClientOriginalExtension();
@@ -153,7 +159,7 @@ class ListingController extends Controller
                 $Listing_data->feature_image = $imageName;
             }
         }
-    
+        
         if ( $request->hasFile( 'gallery_image' ) ) {
             $gallery_images = [];
             foreach ( $request->file( 'gallery_image' ) as $file ) {
@@ -165,7 +171,7 @@ class ListingController extends Controller
             }
             $Listing_data->gallery_image = json_encode( $gallery_images );
         }
-    
+        
         $amenities = $request->get( 'amenities' );
         $start_time = $request->get( 'start_time' );
         $end_time = $request->get( 'end_time' );
@@ -173,24 +179,24 @@ class ListingController extends Controller
         $social_icon = $request->get( 'social_icon' );
         $social_url = $request->get( 'social_url' );
         $social = [];
-    
+        
         if ( count( $social_icon ) === count( $social_url ) ) {
             $social = array_combine( $social_icon, $social_url );
         }
-    
-    
+        
+        
         $Listing_data->social = json_encode( $social );
         
         if ( $Listing_data->save() ) {
-        
+            
             $this->save_listing_time( $id, $start_time, $end_time, $off_day );
             $this->save_listing_amenities( $id, $amenities );
-        
+            
             $request->session()->flash( 'status', ['title' => 'Update Listing', 'type' => 'success'] );
             return redirect( 'listing/all_listing' );
         }
         $request->session()->flash( 'status', ['title' => 'Failed To Update Listing', 'type' => 'danger'] );
-        return redirect( 'listing/'.$id.'/edit' );
+        return redirect( 'listing/' . $id . '/edit' );
     }
     
     public function savelisting( Request $request )
