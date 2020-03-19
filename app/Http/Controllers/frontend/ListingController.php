@@ -118,7 +118,7 @@ class ListingController extends Controller
     
     public function getSelectedTime( $id )
     {
-        return ListingTime::select( 'day','start_time','end_time','close' )->where( 'listing_id', $id )->get();
+        return ListingTime::select( 'day', 'start_time', 'end_time', 'close' )->where( 'listing_id', $id )->get();
         
     }
     
@@ -279,9 +279,15 @@ class ListingController extends Controller
         return redirect( 'addListing' );
     }
     
-    public function deleteListing()
+    public function deleteListing( Request $request, $id )
     {
-    
+        $delete = Listing::destroy( $id );
+        if ( $delete ) {
+            $request->session()->flash( 'status', ['title' => 'Delete Lisitng SuccessFully', 'type' => 'success'] );
+        } else {
+            $request->session()->flash( 'status', ['title' => 'Failed To Delete', 'type' => 'danger'] );
+        }
+        return redirect( 'listing/all_listing' );
     }
     
     public function getAllCategory()

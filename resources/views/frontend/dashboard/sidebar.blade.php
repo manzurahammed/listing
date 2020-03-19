@@ -1,12 +1,11 @@
 
 <div class="lst-dash-user-profile">
     <div class="thumb">
-        <img src="{{ asset('images/frontend/dash-author.jpg') }}" class="img-fluid" alt="">
+        @php ($image = 'upload/'.Auth::user()->image)
+        {{Html::image($image,'profile picture',array('class' => 'img-fluid'))}}
     </div>
     <div class="profile-body">
-        <h4>Manzur</h4>
-        <span>@username</span>
-        <span class="pro"><i class="fas fa-bookmark"></i>Pro User</span>
+        <h4>{{Auth::user()->name}}</h4>
     </div>
 </div>
 

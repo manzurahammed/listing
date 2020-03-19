@@ -16,6 +16,7 @@ Route::get('/', 'DashBoardController@index')->name('home');
 Route::prefix('listing')->group(function () {
 	Route::get('/', 'frontend\DashBoardController@index');
 	Route::get('/profile', 'frontend\DashBoardController@editProfile');
+    Route::put('/profilestore/{id}',array('uses' => 'frontend\DashBoardController@updateProfile', 'as' => 'listing.profile'));
 	Route::get('/all_listing', 'frontend\ListingController@viewListing');
 	Route::get('/active_listing', 'frontend\ListingController@activeListing');
 	Route::get('/pending_listing', 'frontend\ListingController@pendingListing');

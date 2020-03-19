@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-6">
-                <h3 class="breadcrumb-title">Hello, <span>Steve</span></h3>
+                <h3 class="breadcrumb-title">Hello, <span>{{Auth::user()->name}}</span></h3>
             </div>
             <div class="col-sm-6">
                 <nav>
