@@ -12,11 +12,12 @@
 */
 
 Auth::routes();
-Route::get('/', 'DashBoardController@index')->name('home');
+Route::get('/', 'ExploreController@index')->name('home');
+Route::get('/admin', 'DashBoardController@index')->name('admin');
 Route::prefix('listing')->group(function () {
 	Route::get('/', 'frontend\DashBoardController@index');
 	Route::get('/profile', 'frontend\DashBoardController@editProfile');
-    Route::put('/profilestore/{id}',array('uses' => 'frontend\DashBoardController@updateProfile', 'as' => 'listing.profile'));
+	Route::put('/profilestore/{id}', array('uses' => 'frontend\DashBoardController@updateProfile', 'as' => 'listing.profile'));
 	Route::get('/all_listing', 'frontend\ListingController@viewListing');
 	Route::get('/active_listing', 'frontend\ListingController@activeListing');
 	Route::get('/pending_listing', 'frontend\ListingController@pendingListing');
@@ -26,18 +27,18 @@ Route::prefix('listing')->group(function () {
 	Route::post('/savelisting', 'frontend\ListingController@savelisting');
 	Route::get('/bookmarked', 'frontend\ListingController@bookmarked');
 	Route::get('/review', 'frontend\ListingController@review');
-	Route::delete('/delete/{id}',array('uses' => 'frontend\ListingController@deleteListing', 'as' => 'listing.delete'));
-	Route::put('/store/{id}',array('uses' => 'frontend\ListingController@updateListing', 'as' => 'listing.update'));
+	Route::delete('/delete/{id}', array('uses' => 'frontend\ListingController@deleteListing', 'as' => 'listing.delete'));
+	Route::put('/store/{id}', array('uses' => 'frontend\ListingController@updateListing', 'as' => 'listing.update'));
 });
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::resources([
-	    'categories' => 'CategoryController',
-	    'cities' => 'CityController',
-	    'amenties' => 'AmentiesController',
-	    'papersize' => 'PaperSizeController',
-	    'users' => 'UserController',
-	    'pages' => 'PageController',
+		'categories' => 'CategoryController',
+		'cities' => 'CityController',
+		'amenties' => 'AmentiesController',
+		'papersize' => 'PaperSizeController',
+		'users' => 'UserController',
+		'pages' => 'PageController',
 	]);
 	Route::get('/dashboard', 'DashBoardController@index');
 	Route::get('/catpaper', 'CatPaperController@index');

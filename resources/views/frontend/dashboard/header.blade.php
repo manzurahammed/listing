@@ -22,20 +22,24 @@
     <link href="{{ asset('css/frontend/main.css') }}" rel="stylesheet">
     <link href="{{ asset('css/frontend/dashboard.css') }}" rel="stylesheet">
 
+
+    <!-- leaflet -->
+    <link rel="stylesheet" href="{{ asset('css/frontend/leaflet/css/leaflet.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/frontend/leaflet/css/MarkerCluster.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/frontend/leaflet/css/MarkerCluster.Default.css') }}">
+
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Rubik:400,500%7CSignika:400,600,700" rel="stylesheet">
 
     <!-- Favicon -->
     <link rel="icon" href="images/favicon.png">
 </head>
-
-
 <body>
 
 <header>
     <div class="cp-nav nav-3 color-bg">
         <nav class="navbar navbar-expand-lg">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="{{ '/' }}">
                 <img src="{{ asset('images/frontend/logo-white.png') }}" class="img-fluid" alt="">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
