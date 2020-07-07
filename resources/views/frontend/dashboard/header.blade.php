@@ -66,58 +66,16 @@
             </div>
             <div class="nav-extra">
                 <div class="user">
-                    <a href="#"><span class="ti-user"></span></a>
+                    <a href="{{url("/profile")}}"><span class="ti-user"></span></a>
                 </div>
                 <div class="nav-listing">
-                    <a href="post-listing.html"><span class="ti-plus"></span><span class="text">Add Listing</span></a>
+                    <a href="{{url("/listing/add")}}"><span class="ti-plus"></span><span class="text">Add Listing</span></a>
                 </div>
             </div>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
-                    <li class="menu-item dropdown">
-                        <a title="" href="#" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">Home</a>
-                        <ul class="dropdown-menu">
-                            <li class="menu-item"><a href="home.html">Home One</a></li>
-                            <li class="menu-item"><a href="home-2.html">Home Two</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item dropdown">
-                        <a title="" href="#" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">Listing</a>
-                        <ul class="dropdown-menu">
-                            <li class="menu-item"><a href="listing-right.html">Listing Right</a></li>
-                            <li class="menu-item"><a href="listing-left.html">Listing Left</a></li>
-                            <li class="menu-item"><a href="listing-map-top.html">Listing Top</a></li>
-                            <li class="menu-item"><a href="listing-sidebar.html">Listing Sidebar</a></li>
-                            <li class="menu-item"><a href="listing-without-map.html">Listing Without Map</a></li>
-                            <li class="menu-item"><a href="listing-details.html">Listing Details</a></li>
-                            <li class="menu-item"><a href="post-listing.html">Post Listing</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item dropdown">
-                        <a title="" href="#" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">User Panel</a>
-                        <ul class="dropdown-menu">
-                            <li class="menu-item"><a href="dashboard.html">Dashboard</a></li>
-                            <li class="menu-item"><a href="edit-profile.html">Edit Profile</a></li>
-                            <li class="menu-item"><a href="all-listing.html">My Listing</a></li>
-                            <li class="menu-item"><a href="dashboard-add-listing.html">Add Listing</a></li>
-                            <li class="menu-item"><a href="bookmarked.html">Bookmarked</a></li>
-                            <li class="menu-item"><a href="message.html">Message</a></li>
-                            <li class="menu-item"><a href="dashboard-pricing.html">Pricing</a></li>
-                            <li class="menu-item"><a href="review.html">Review</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item dropdown">
-                        <a title="" href="#" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">Pages</a>
-                        <ul class="dropdown-menu">
-                            <li class="menu-item"><a href="about.html">About Us</a></li>
-                            <li class="menu-item"><a href="contact.html">Contact</a></li>
-                            <li class="menu-item"><a href="blog-list.html">Blog</a></li>
-                            <li class="menu-item"><a href="blog-grid.html">Blog Grid</a></li>
-                            <li class="menu-item"><a href="blog-details.html">Blog Details</a></li>
-                            <li class="menu-item"><a href="pricing.html">Pricing</a></li>
-                        </ul>
-                    </li>
+                    
                 </ul>
             </div>
         </nav>

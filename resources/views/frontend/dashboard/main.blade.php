@@ -11,7 +11,7 @@
             <div class="col-sm-6">
                 <nav>
                     <ol class="breadcrumb dashboard-breadcrumb">
-                        <li class="breadcrumb-item"><a href="home.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
                         <li class="breadcrumb-item active">Dashboard</li>
                     </ol>
                 </nav>
