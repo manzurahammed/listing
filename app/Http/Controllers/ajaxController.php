@@ -9,8 +9,12 @@ class ajaxController extends Controller
     public function searchFilter(Request $request)
     {
         $category_ID = $request->input('category_ID');
+        $keywords = $request->input('keywords');
 
-        $listing = \DB::table('listing')->join('categories', 'categories.id', 'listing.cat_id')->where('categories.id', $category_ID)->get();
+        $listing = \DB::table('listing')
+            ->join('categories', 'categories.id', 'listing.cat_id')
+            ->where('categories.id', $category_ID)
+            ->where('title', 'like', '%' . $keywords . '%')->get();
 
         // send respond markup
         $markup = '<div class="row">';

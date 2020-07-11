@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Template</title>
+    <title>Explore</title>
 
     <!-- Bootstrap CSS -->
     <link href="{{ asset('css/frontend/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -50,19 +50,18 @@
                 <a href="#" class="nav-search-toggle"><i class="fas fa-search"></i></a>
                 <form action="#">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Keyword">
+                        <input type="text" class="form-control searchkeyword" placeholder="Keyword">
                     </div>
                     <div class="form-group">
-                        <select class="form-control nav-search-category">
-                            <option value="">All Category</option>
-                            <option value="">Luxury Hotel</option>
-                            <option value="">Food & Drinks</option>
-                            <option value="">Beauty & Spa</option>
-                            <option value="">Health & Medical</option>
-                            <option value="">Real State</option>
+                        <select class="form-control nav-search-category searchcategory">
+                            @if (isset($category) && $category->isNotEmpty())
+                                @foreach ($category as $key => $item)
+                                <option value="{{$item->id}}">{{$item->name}}</option>
+                                @endforeach
+                            @endif
                         </select>
                     </div>
-                    <button class="button"><i class="fas fa-search"></i></button>
+                    <button id="ajaxsearch" class="button"><i class="fas fa-search"></i></button>
                 </form>
             </div>
             <div class="nav-extra">

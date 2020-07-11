@@ -89,13 +89,6 @@
             </div>
             {{-- search result --}}
             <div class="listing-result">
-              <div class="listing-result-header">
-                <h5 class="searching-for">Results For: <span>Restaurant</span></h5>
-                <div class="search-result-view-control">
-                  <a href="#" class="grid-view view-change active"><i class="fas fa-th-large"></i></a>
-                  <a href="#" class="list-view view-change"><i class="fas fa-bars"></i></a>
-                </div>
-              </div>
               <div id="listingsearchresults" class="listing-result-block">
                 <div class="row">
                     @if ($listing->isNotEmpty())
@@ -131,19 +124,6 @@
                 @else
                     @lang('trn.NO_DATA_FOUND')
                 @endif
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <nav class="navigation pagination mar-10 justify-content-center">
-                      <div class="nav-links">
-                        <a class="prev page-numbers" href="#"><i class="fas fa-angle-left"></i></a>
-                        <a class="page-numbers" href="#">1</a>
-                        <span aria-current="page" class="page-numbers current">2</span>
-                        <a class="page-numbers" href="#">3</a>
-                        <a class="next page-numbers" href="#"><i class="fas fa-angle-right"></i></a>
-                      </div>
-                    </nav>
-                  </div>
                 </div>
               </div>
             </div>
