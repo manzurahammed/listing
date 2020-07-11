@@ -9,6 +9,10 @@ class ExploreController extends Controller
     public function index()
     {
         $listing = \DB::table('listing')->join('categories', 'categories.id', 'listing.cat_id')->get();
-        return view('page.explore', ['listing' => $listing]);
+        $category = \DB::table('categories')->get();
+        return view('page.explore', [
+            'listing' => $listing,
+            'category' => $category
+        ]);
     }
 }

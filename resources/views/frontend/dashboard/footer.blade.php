@@ -63,4 +63,5 @@
 
  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCo_UiZM19FOm6-Vpl42HXNDrpYwGHCzPo"></script>
  <script src="{{ asset('css/frontend/map.js') }}"></script>
+ <script src="{{ asset('css/frontend/ajaxMapFilter.js') }}"></script>
 </body>

@@ -2,7 +2,7 @@
 <html lang="en">
 @include('frontend.dashboard.header')
 <div class="search-listing-wrap map-top">
-    <div class="listing-map-block">
+    <div id="searchmapwrap" class="listing-map-block">
       <div id="searchmap" class="searchmap"></div>
     </div>
     <div class="listing-wrap grey-bg">
@@ -13,13 +13,12 @@
               <form action="#">
                 <div class="listing-filter-block">
                   <div class="category">
-                    <select class="form-control select-category">
-                      <option value="">Hotel & Restuarant</option>
-                      <option value="">Beauty & Spa</option>
-                      <option value="">Health & Medical</option>
-                      <option value="">Real Estate</option>
-                      <option value="">Food & Hotel</option>
-                      <option value="">Travel</option>
+                    <select id="categoryfilter" class="form-control select-category">
+                    @if ($category->isNotEmpty())
+                      @foreach ($category as $key => $item)
+                      <option value="{{$item->id}}">{{$item->name}}</option>
+                      @endforeach
+                    @endif
                     </select>
                   </div>
                   <div class="price">
@@ -88,6 +87,7 @@
                 </div>
               </form>
             </div>
+            {{-- search result --}}
             <div class="listing-result">
               <div class="listing-result-header">
                 <h5 class="searching-for">Results For: <span>Restaurant</span></h5>
@@ -96,9 +96,8 @@
                   <a href="#" class="list-view view-change"><i class="fas fa-bars"></i></a>
                 </div>
               </div>
-              <div class="listing-result-block">
+              <div id="listingsearchresults" class="listing-result-block">
                 <div class="row">
-                  {{-- {{dd($listing)}} --}}
                     @if ($listing->isNotEmpty())
                     @foreach ($listing as $key => $item)
                         @php ($image = 'feature_image/'.$item->feature_image)
