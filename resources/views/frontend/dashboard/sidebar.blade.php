@@ -17,14 +17,8 @@
         <li class="navigation-item">
             <a href="{{url("/listing/profile")}}"><i class="fas fa-user"></i>Edit Profile</a>
         </li>
-        <li class="navigation-item dropdown">
-            <a href="#"><i class="fas fa-bolt"></i>My Listing</a>
-            <ul class="dropdown-menu">
-                <li><a href="{{url("/listing/all_listing")}}">All Listing</a></li>
-                <li><a href="{{url("/listing/active_listing")}}">Active Listing</a></li>
-                <li><a href="{{url("/listing/pending_listing")}}">Pending Listing</a></li>
-                <li><a href="{{url("/listing/expired_listing")}}">Expired Listing</a></li>
-            </ul>
+        <li class="navigation-item">
+            <a href="{{url("/listing/all_listing")}}"><i class="fas fa-bolt"></i>My Listing</a>
         </li>
         <li class="navigation-item">
             <a href="{{url("/listing/add")}}"><i class="fas fa-plus-circle"></i>Add Listing</a>
