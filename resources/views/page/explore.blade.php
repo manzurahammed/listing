@@ -1,10 +1,6 @@
 <!doctype html>
 <html lang="en">
 @include('frontend.dashboard.header')
-
-
-
-
 <div class="search-listing-wrap map-top">
     <div class="listing-map-block">
       <div id="searchmap" class="searchmap"></div>
@@ -102,42 +98,32 @@
               </div>
               <div class="listing-result-block">
                 <div class="row">
+                  {{-- {{dd($listing)}} --}}
                     @if ($listing->isNotEmpty())
                     @foreach ($listing as $key => $item)
                         @php ($image = 'feature_image/'.$item->feature_image)
                         <div class="col-lg-4 col-md-6 map-top-result-item">
-                            <div class="lrn-listing-wrap">
+                            <div class="lrn-listing-wrap" data-latitude="{{$item->latitude}}" data-longitude="{{$item->longitude}}" data-mapicon={{url('upload/cat_image/'.$item->image)}}>
                                 <div class="listing-thumb">
-                                <a href="listing/{{$item->id}}/details">
-                                    {{Html::image($image,'profile picture',array('class' => 'img-fluid'))}}
-                                </a>
+                                  <a href="listing/{{$item->id}}/details">
+                                      {{Html::image($image,'profile picture',array('class' => 'img-fluid'))}}
+                                  </a>
                                 </div>
                                 <div class="listing-body">
                                 <div class="meta">
-                                    <a href="#" class="avater">
-                                    <img src="images/listing/avater-2.jpg" class="img-fluid" alt="">
-                                    </a>
                                     <a href="#" class="favourite"><span class="ti-heart"></span></a>
                                     <a href="#" class="preview" data-toggle="modal" data-target="#listingModal"><span class="ti-eye"></span></a>
                                 </div>
                                 <h3><a href="listing/{{$item->id}}/details">{{$item->title}}</a></h3>
-                                <div class="reviews">
-                                    <div class="rating">3.9</div>
-                                    <span>5 Reviews</span>
-                                </div>
                                 <div class="listing-location">
-                                    <div class="icon">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    </div>
-                                    <span>4213 Hardman Road, South Burlington</span>
+                                  <span>{{\Illuminate\Support\Str::limit(strip_tags($item->description), 50)}}</span>
                                 </div>
                                 <div class="listing-category">
-                                    <div class="icon"><i class="fab fa-pagelines"></i></div>
-                                    <span><a href="#">Spa & Beauty</a></span>
-                                </div>
-                                <div class="listing-bottom">
-                                    <span><i class="fas fa-phone"></i>+50 125 145601</span>
-                                    <span class="status close-now"><i class="far fa-clock"></i>Closed Now</span>
+                                    <div class="icon">
+                                      @php ($cat_image = 'upload/cat_image/'.$item->image)
+                                        {{Html::image($cat_image,'mapicon',array('class' => 'img-fluid'))}}
+                                    </div>
+                                <span><a href="#">{{$item->name}}</a></span>
                                 </div>
                                 </div>
                             </div>
