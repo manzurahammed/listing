@@ -17,6 +17,7 @@ Auth::routes();
 Route::get('/', 'ExploreController@index')->name('home');
 Route::get('/admin', 'DashBoardController@index')->name('admin');
 Route::post('/searchmap', 'ajaxController@searchFilter');
+Route::get('listing/{id}/details', 'frontend\ListingController@listingDetails');
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::prefix('listing')->group(function () {

@@ -93,6 +93,7 @@
                 <div class="row">
                     @if ($listing->isNotEmpty())
                     @foreach ($listing as $key => $item)
+                        
                         @php ($image = 'feature_image/'.$item->feature_image)
                         <div class="col-lg-4 col-md-6 map-top-result-item">
                             <div class="lrn-listing-wrap" data-latitude="{{$item->latitude}}" data-longitude="{{$item->longitude}}" data-mapicon={{url('upload/cat_image/'.$item->image)}}>

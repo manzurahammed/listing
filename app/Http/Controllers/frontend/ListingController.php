@@ -86,6 +86,12 @@ class ListingController extends Controller
         ]);
     }
 
+    public function listingDetails($id)
+    {
+        $listing = \DB::table('listing')->where('id', $id)->first();
+        return view('page.listing-single', ['listing' =>  $listing]);
+    }
+
     public function editListing($id)
     {
         $days = ['saturday', 'sunday', 'monday', 'Tuesday', 'wednesday', 'thursday', 'friday'];
