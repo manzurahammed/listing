@@ -73,8 +73,8 @@
                   <div class="filter-distance">
                     <h5>Radius</h5>
                     <div class="price-range-slider">
-                      <div class="nstSlider" data-range_min="0" data-range_max="100" 
-                       data-cur_min="20">
+                      <div class="nstSlider" data-range_min="0" data-range_max="1000" 
+                       data-cur_min="0">
                         <div class="bar"></div>
                         <div class="leftGrip">
                           <div class="grip-label">
@@ -103,10 +103,6 @@
                                   </a>
                                 </div>
                                 <div class="listing-body">
-                                <div class="meta">
-                                    <a href="#" class="favourite"><span class="ti-heart"></span></a>
-                                    <a href="#" class="preview" data-toggle="modal" data-target="#listingModal"><span class="ti-eye"></span></a>
-                                </div>
                                 <h3><a href="listing/{{$item->id}}/details">{{$item->title}}</a></h3>
                                 <div class="listing-location">
                                   <span>{{\Illuminate\Support\Str::limit(strip_tags($item->description), 50)}}</span>
