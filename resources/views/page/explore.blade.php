@@ -45,36 +45,15 @@
                       <div class="filter-tag">
                         <h5>Tags</h5>
                         <div class="tag-block">
-                          <label for="tag-1">
-                            <input type="checkbox" id="tag-1">
+                          @if(count($amenties) > 0) 
+                            @foreach ($amenties as $item)
+                          <label for="amenties-{{$item->id}}">
+                            <input type="checkbox" id="amenties-{{$item->id}}">
                             <span class="box"></span>
-                            <span>Hotel</span>
+                            <span>{{$item->name}}</span>
                           </label>
-                          <label for="tag-2">
-                            <input type="checkbox" id="tag-2" checked>
-                            <span class="box"></span>
-                            <span>Play Ground</span>
-                          </label>
-                          <label for="tag-3">
-                            <input type="checkbox" id="tag-3" checked>
-                            <span class="box"></span>
-                            <span>School</span>
-                          </label>
-                          <label for="tag-4">
-                            <input type="checkbox" id="tag-4">
-                            <span class="box"></span>
-                            <span>Kids Zone</span>
-                          </label>
-                          <label for="tag-5">
-                            <input type="checkbox" id="tag-5">
-                            <span class="box"></span>
-                            <span>Hot Coffee</span>
-                          </label>
-                          <label for="tag-6">
-                            <input type="checkbox" id="tag-6">
-                            <span class="box"></span>
-                            <span>Wireless Internet</span>
-                          </label>
+                          @endforeach
+                          @endif
                         </div>
                       </div>
                       <div class="filter-distance">

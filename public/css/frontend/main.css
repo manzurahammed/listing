@@ -3245,10 +3245,7 @@ a:focus {
 }
 
 .search-listing-wrap .listing-map-block {
-    -webkit-box-flex: 0;
-    -ms-flex: 0 0 calc(100% - 890px);
-    flex: 0 0 calc(100% - 890px);
-    overflow: hidden;
+    width: 100%;
 }
 
 .listing-wrap {
@@ -3654,8 +3651,8 @@ a:focus {
 .search-listing-wrap.map-top .listing-map-block .searchmap,
 .search-listing-wrap.filter-sidebar .listing-map-block .searchmap {
     position: static !important;
-    width: 100%;
-    height: 700px;
+    width: 60%;
+    height: 100vh !important;
 }
 
 .search-listing-wrap.map-top {

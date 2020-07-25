@@ -25,11 +25,16 @@ function liefletMapInIt() {
         })
 
         var tiles = L.tileLayer(
-                'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+                'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}',
                 {
                     attribution:
-                        'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
-                    maxZoom: 16,
+                        'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                    maxZoom: 18,
+                    id: 'mapbox/streets-v11',
+                    tileSize: 512,
+                    zoomOffset: -1,
+                    accessToken:
+                        'pk.eyJ1IjoidHVzaGFyOTkwOSIsImEiOiJja2QxanV1NzIwNGJmMnpueG50dGtzZmlwIn0.5pTJYB1OzUhkO7k357E1Ww',
                 }
             ),
             latlng = L.latLng(40.716593, -74.0012097)
