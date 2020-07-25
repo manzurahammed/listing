@@ -48,21 +48,7 @@
             </button>
             <div class="nav-search">
                 <a href="#" class="nav-search-toggle"><i class="fas fa-search"></i></a>
-                <form action="#">
-                    <div class="form-group">
-                        <input type="text" class="form-control searchkeyword" placeholder="Keyword">
-                    </div>
-                    <div class="form-group">
-                        <select class="form-control nav-search-category searchcategory">
-                            @if (isset($category) && $category->isNotEmpty())
-                                @foreach ($category as $key => $item)
-                                <option value="{{$item->id}}">{{$item->name}}</option>
-                                @endforeach
-                            @endif
-                        </select>
-                    </div>
-                    <button id="ajaxsearch" class="button"><i class="fas fa-search"></i></button>
-                </form>
+                
             </div>
             <div class="nav-extra">
                 <div class="user">

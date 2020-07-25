@@ -79,6 +79,8 @@ $(document).ready(function () {
                     type: 'radius',
                     location: currentLocation,
                     radius: leftValue,
+                    categroy: categroyID,
+                    keywords: keywords,
                 })
             }
         },

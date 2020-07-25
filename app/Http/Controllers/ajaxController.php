@@ -17,6 +17,9 @@ class ajaxController extends Controller
         if ($type == 'radius') {
             $LATITUDE = $location[0];
             $LONGITUDE = $location[1];
+            $queryString = (!empty($category_ID) ? " AND cat_id = $category_ID" : '');
+            $queryString .= (!empty($keywords) ? " AND title LIKE '%$keywords%'" : '');
+
             $listing = \DB::select(\DB::raw("SELECT * FROM (
             SELECT *, 
                 (
@@ -34,19 +37,22 @@ class ajaxController extends Controller
             as distance FROM `listing`
         ) listing
         INNER JOIN categories ON categories.id=listing.cat_id
-        WHERE distance <= $radius
+        WHERE (distance <= $radius $queryString)
         LIMIT 15"));
         } else {
-            $listing = \DB::table('listing')
-                ->join('categories', 'categories.id', 'listing.cat_id')
-                ->where('categories.id', $category_ID)
-                ->where('title', 'like', '%' . $keywords . '%')->get();
+            if ($category_ID !== null) {
+                $listing = \DB::table('listing')
+                    ->join('categories', 'categories.id', '=', 'listing.cat_id')
+                    ->select('categories.*', 'listing.*')
+                    ->Where('categories.id', $category_ID)
+                    ->where('title', 'like', '%' . $keywords . '%')->get();
+            } else {
+                $listing = \DB::table('listing')
+                    ->join('categories', 'categories.id', '=', 'listing.cat_id')
+                    ->select('categories.*', 'listing.*')
+                    ->where('title', 'like', '%' . $keywords . '%')->get();
+            }
         }
-
-
-
-
-
         // send respond markup
         $markup = '<div class="row">';
         if (count($listing) > 0) {
@@ -59,10 +65,6 @@ class ajaxController extends Controller
                         </a>
                     </div>
                     <div class="listing-body">
-                    <div class="meta">
-                        <a href="#" class="favourite"><span class="ti-heart"></span></a>
-                        <a href="#" class="preview" data-toggle="modal" data-target="#listingModal"><span class="ti-eye"></span></a>
-                    </div>
                     <h3><a href="listing/' . $item->id . '/details">' . $item->title . '</a></h3>
                     <div class="listing-location">
                         <span>' . \Illuminate\Support\Str::limit(strip_tags($item->description), 50) . '</span>
