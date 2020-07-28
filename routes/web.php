@@ -13,24 +13,27 @@
 
 Auth::routes();
 Route::get('/', 'DashBoardController@index')->name('home');
-Route::prefix('listing')->group(function () {
-	Route::get('/', 'frontend\DashBoardController@index');
-	Route::get('/profile', 'frontend\DashBoardController@editProfile');
-    Route::put('/profilestore/{id}',array('uses' => 'frontend\DashBoardController@updateProfile', 'as' => 'listing.profile'));
-	Route::get('/all_listing', 'frontend\ListingController@viewListing');
-	Route::get('/active_listing', 'frontend\ListingController@activeListing');
-	Route::get('/pending_listing', 'frontend\ListingController@pendingListing');
-	Route::get('/expired_listing', 'frontend\ListingController@expiredListing');
-	Route::get('/add', 'frontend\ListingController@addListing');
-	Route::get('/{id}/edit', 'frontend\ListingController@editListing');
-	Route::post('/savelisting', 'frontend\ListingController@savelisting');
-	Route::get('/bookmarked', 'frontend\ListingController@bookmarked');
-	Route::get('/review', 'frontend\ListingController@review');
-	Route::delete('/delete/{id}',array('uses' => 'frontend\ListingController@deleteListing', 'as' => 'listing.delete'));
-	Route::put('/store/{id}',array('uses' => 'frontend\ListingController@updateListing', 'as' => 'listing.update'));
-});
+
 
 Route::group(['middleware' => 'auth'], function () {
+    
+    Route::prefix('listing')->group(function () {
+        Route::get('/', 'frontend\DashBoardController@index');
+        Route::get('/profile', 'frontend\DashBoardController@editProfile');
+        Route::put('/profilestore/{id}',array('uses' => 'frontend\DashBoardController@updateProfile', 'as' => 'listing.profile'));
+        Route::get('/all_listing', 'frontend\ListingController@viewListing');
+        Route::get('/active_listing', 'frontend\ListingController@activeListing');
+        Route::get('/pending_listing', 'frontend\ListingController@pendingListing');
+        Route::get('/expired_listing', 'frontend\ListingController@expiredListing');
+        Route::get('/add', 'frontend\ListingController@addListing');
+        Route::get('/{id}/edit', 'frontend\ListingController@editListing');
+        Route::post('/savelisting', 'frontend\ListingController@savelisting');
+        Route::get('/bookmarked', 'frontend\ListingController@bookmarked');
+        Route::get('/review', 'frontend\ListingController@review');
+        Route::delete('/delete/{id}',array('uses' => 'frontend\ListingController@deleteListing', 'as' => 'listing.delete'));
+        Route::put('/store/{id}',array('uses' => 'frontend\ListingController@updateListing', 'as' => 'listing.update'));
+    });
+    
 	Route::resources([
 	    'categories' => 'CategoryController',
 	    'cities' => 'CityController',
