@@ -26,9 +26,6 @@
                         <button id="ajaxsearch" class="button btn btn-primary"><i class="fas fa-search"></i></button>
                       </div>
                     </div>
-                     
-                    
-                      
                     {{-- filter --}}
                     <div class="listing-filter-block">
                       <div class="category">
@@ -87,6 +84,7 @@
                                       <a href="listing/{{$item->id}}/details">
                                           {{Html::image($image,'profile picture',array('class' => 'img-fluid'))}}
                                       </a>
+                                      <div class="locationroute"></div>
                                     </div>
                                     <div class="listing-body">
                                     <h3><a href="listing/{{$item->id}}/details">{{$item->title}}</a></h3>

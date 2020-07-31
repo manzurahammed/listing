@@ -144,3 +144,30 @@ function liefletMapInIt() {
 }
 
 liefletMapInIt()
+
+$(document).ready(function () {
+    var currentLocation
+    if (navigator.geolocation) {
+        currentLocation = navigator.geolocation.getCurrentPosition(function (
+            position
+        ) {
+            jQuery('.lrn-listing-wrap').each(function (index, item) {
+                jQuery(item)
+                    .find('.locationroute')
+                    .html(
+                        '<a target="_blank" href="https://www.google.es/maps/dir/' +
+                            position.coords.latitude +
+                            ',' +
+                            position.coords.longitude +
+                            '/' +
+                            $(item).data('latitude') +
+                            ',' +
+                            $(item).data('longitude') +
+                            '">Get Directions</a>'
+                    )
+            })
+        })
+    }
+
+    // ;
+})

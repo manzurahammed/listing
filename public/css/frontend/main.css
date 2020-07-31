@@ -1391,7 +1391,13 @@ a:focus {
 .lrn-listing-wrap .listing-body .listing-bottom span.status.close-now i {
     color: #ff60ae;
 }
-
+.lrn-listing-wrap .locationroute {
+    position: absolute;
+    background: #2d2d2d;
+    color: white;
+    padding: 0 9px;
+    margin-top: -25px;
+}
 .lrn-listing-wrap:hover {
     -webkit-box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.08);
     box-shadow: 0px 5px 25px 0px rgba(0, 0, 0, 0.08);
