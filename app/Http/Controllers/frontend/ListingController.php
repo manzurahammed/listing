@@ -89,7 +89,12 @@ class ListingController extends Controller
     public function listingDetails($id)
     {
         $listing = \DB::table('listing')->where('id', $id)->first();
-        return view('page.listing-single', ['listing' =>  $listing]);
+        return view('page.listing-single', [
+            'listing' =>  $listing,
+            'selected_amenities' => $this->getSelectedAmenities($id),
+            'amenities'          => $this->getAmenities(),
+            'selected_time'      => $this->getSelectedTime($id),
+        ]);
     }
 
     public function editListing($id)
