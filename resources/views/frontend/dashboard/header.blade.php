@@ -52,7 +52,7 @@
             </div>
             <div class="nav-extra">
                 <div class="user">
-                    <a href="{{url("/profile")}}"><span class="ti-user"></span></a>
+                    <a href="{{url("/listing/all_listing")}}"><span class="ti-user"></span></a>
                 </div>
                 <div class="nav-listing">
                     <a href="{{url("/listing/add")}}"><span class="ti-plus"></span><span class="text">Add Listing</span></a>
