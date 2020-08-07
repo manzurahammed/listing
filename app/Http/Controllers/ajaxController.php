@@ -63,6 +63,7 @@ class ajaxController extends Controller
                         <a href="listing/{{$item->id}}/details">
                             <img class="img-fluid" src="' . url('feature_image/' . $item->feature_image) . '" alt="featured image" />
                         </a>
+                        <div class="locationroute"></div>
                     </div>
                     <div class="listing-body">
                     <h3><a href="listing/' . $item->id . '/details">' . $item->title . '</a></h3>

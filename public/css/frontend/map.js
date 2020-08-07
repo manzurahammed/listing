@@ -27,7 +27,7 @@ $(document).ready(function () {
                             'pk.eyJ1IjoidHVzaGFyOTkwOSIsImEiOiJja2QxanV1NzIwNGJmMnpueG50dGtzZmlwIn0.5pTJYB1OzUhkO7k357E1Ww',
                     }
                 ),
-                latlng = L.latLng(40.716593, -74.0012097)
+                latlng = L.latLng(mapLat, mapLng)
 
             var map = L.map('location', {
                 center: latlng,
@@ -36,7 +36,23 @@ $(document).ready(function () {
                 layers: [tiles],
             })
 
-            L.marker([mapLat, mapLng]).addTo(map)
+            var LeafIcon = L.Icon.extend({
+                options: {
+                    shadowUrl: 'leaf-shadow.png',
+                    iconSize: [38, 95],
+                    shadowSize: [50, 64],
+                    iconAnchor: [22, 94],
+                    shadowAnchor: [4, 62],
+                    popupAnchor: [-3, -76],
+                },
+            })
+
+            var greenIcon = new LeafIcon({
+                iconUrl:
+                    'https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2.png',
+            })
+
+            L.marker([mapLat, mapLng], { icon: greenIcon }).addTo(map)
         })
     }
     initialize()

@@ -19,12 +19,6 @@
         <li class="navigation-item">
             <a href="{{url("listing/add")}}" class="{{ (request()->is('listing/add')) ? 'active' : '' }}"><i class="fas fa-plus-circle"></i>Add Listing</a>
         </li>
-        <li class="navigation-item">
-            <a href="{{url("listing/bookmarked")}}" class="{{ (request()->is('listing/bookmarked')) ? 'active' : '' }}"><i class="fas fa-heart"></i>Bookmarked</a>
-        </li>
-        <li class="navigation-item">
-            <a href="{{url("listing/review")}}" class="{{ (request()->is('listing/review')) ? 'active' : '' }}"><i class="fas fa-star"></i>Review</a>
-        </li>
     </ul>
     <a href="{{url("logout")}}" class="logout-button">Logout</a>
 </div>

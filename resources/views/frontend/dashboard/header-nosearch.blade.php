@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Explore</title>
+    <title>Nearby Place Search</title>
 
     <!-- Bootstrap CSS -->
     <link href="{{ asset('css/frontend/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -47,11 +47,10 @@
                 <span class="ti-menu"></span>
             </button>
             <div class="nav-search">
-               
             </div>
             <div class="nav-extra">
                 <div class="user">
-                    <a href="{{url("/profile")}}"><span class="ti-user"></span></a>
+                    <a href="{{url("/listing/all_listing")}}"><span class="ti-user"></span></a>
                 </div>
                 <div class="nav-listing">
                     <a href="{{url("/listing/add")}}"><span class="ti-plus"></span><span class="text">Add Listing</span></a>

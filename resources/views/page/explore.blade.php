@@ -39,20 +39,6 @@
                         </select>
                       </div>
                       <div class="w-100"></div>
-                      <div class="filter-tag">
-                        <h5>Tags</h5>
-                        <div class="tag-block">
-                          @if(count($amenties) > 0) 
-                            @foreach ($amenties as $item)
-                          <label for="amenties-{{$item->id}}">
-                            <input type="checkbox" id="amenties-{{$item->id}}">
-                            <span class="box"></span>
-                            <span>{{$item->name}}</span>
-                          </label>
-                          @endforeach
-                          @endif
-                        </div>
-                      </div>
                       <div class="filter-distance">
                         <h5>Radius</h5>
                         <div class="price-range-slider">

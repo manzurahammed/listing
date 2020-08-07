@@ -14,13 +14,13 @@
                         @php ($image = 'feature_image/'.$item->feature_image)
                         <div class="my-listing">
                             <div class="thumb">
-                                <a href="listing/{{$item->id}}/details">
+                                <a href="{{url("/listing/{$item->id}/details")}}">
                                     {{Html::image($image,'profile picture',array('hight'=>110,'width'=>130,'class' => 'img-fluid'))}}
                                 </a>
                             </div>
                             <div class="body">
                                 <div class="content">
-                                    <h4><a href="listing/{{$item->id}}/details">{{$item->title}}</a></h4>
+                                    <h4><a href="{{url("/listing/{$item->id}/details")}}">{{$item->title}}</a></h4>
                                     <p class="listing-address">715 Eagle Drive MI 4821</p>
                                     <p class="listing-meta"><span class="review"><span class="rating">4.5</span>13 Reviews</span> <span class="view"><i class="fas fa-eye"></i>256 Views</span> <span class="favroute"><i class="fas fa-heart"></i>35 Favorites</span></p>
                                 </div>
