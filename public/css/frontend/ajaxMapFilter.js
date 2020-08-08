@@ -16,7 +16,6 @@ $(document).ready(function () {
                 radius: param.radius,
             },
             success: function (response) {
-                console.log(response)
                 $('#listingsearchresults').html(response.markup)
                 liefletMapInIt()
                 // added route
@@ -28,8 +27,6 @@ $(document).ready(function () {
                                 index,
                                 item
                             ) {
-                                console.log(position.coords.latitude)
-                                console.log(position.coords.longitude)
                                 jQuery(item)
                                     .find('.locationroute')
                                     .html(

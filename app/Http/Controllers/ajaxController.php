@@ -19,7 +19,7 @@ class ajaxController extends Controller
             $LONGITUDE = $location[1];
             $queryString = (!empty($category_ID) ? " AND cat_id = $category_ID" : '');
             $queryString .= (!empty($keywords) ? " AND title LIKE '%$keywords%'" : '');
-            $listing = \DB::select(\DB::raw("SELECT *,listing.id as test_id FROM (
+            $listing = \DB::select(\DB::raw("SELECT *,listing.id as listing_id FROM (
             SELECT *, 
                 (
                     (
@@ -42,13 +42,13 @@ class ajaxController extends Controller
             if ($category_ID !== null) {
                 $listing = \DB::table('listing')
                     ->join('categories', 'categories.id', '=', 'listing.cat_id')
-                    ->select('categories.*', 'listing.*','listing.id as test_id')
+                    ->select('categories.*', 'listing.*', 'listing.id as listing_id')
                     ->Where('categories.id', $category_ID)
                     ->where('title', 'like', '%' . $keywords . '%')->get();
             } else {
                 $listing = \DB::table('listing')
                     ->join('categories', 'categories.id', '=', 'listing.cat_id')
-                    ->select('categories.*', 'listing.*','listing.id as test_id')
+                    ->select('categories.*', 'listing.*', 'listing.id as listing_id')
                     ->where('title', 'like', '%' . $keywords . '%')->get();
             }
         }
@@ -59,13 +59,13 @@ class ajaxController extends Controller
                 $markup .= '<div class="col-lg-4 col-md-6 map-top-result-item">';
                 $markup .= '<div class="lrn-listing-wrap" data-latitude="' . $item->latitude . '" data-longitude="' . $item->longitude . '" data-mapicon="' . url('upload/cat_image/' . $item->image) . '">
                     <div class="listing-thumb">
-                        <a href="listing/{{$item->id}}/details">
+                        <a href="listing/' . $item->listing_id . '/details">
                             <img class="img-fluid" src="' . url('feature_image/' . $item->feature_image) . '" alt="featured image" />
                         </a>
                         <div class="locationroute"></div>
                     </div>
                     <div class="listing-body">
-                    <h3><a href="listing/' . $item->test_id . '/details">' . $item->test_id . '</a></h3>
+                    <h3><a href="listing/' . $item->listing_id . '/details">' . $item->title . '</a></h3>
                     <div class="listing-location">
                         <span>' . \Illuminate\Support\Str::limit(strip_tags($item->description), 50) . '</span>
                     </div>
