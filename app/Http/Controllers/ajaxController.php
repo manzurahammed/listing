@@ -19,8 +19,7 @@ class ajaxController extends Controller
             $LONGITUDE = $location[1];
             $queryString = (!empty($category_ID) ? " AND cat_id = $category_ID" : '');
             $queryString .= (!empty($keywords) ? " AND title LIKE '%$keywords%'" : '');
-
-            $listing = \DB::select(\DB::raw("SELECT * FROM (
+            $listing = \DB::select(\DB::raw("SELECT *,listing.id as test_id FROM (
             SELECT *, 
                 (
                     (
@@ -43,13 +42,13 @@ class ajaxController extends Controller
             if ($category_ID !== null) {
                 $listing = \DB::table('listing')
                     ->join('categories', 'categories.id', '=', 'listing.cat_id')
-                    ->select('categories.*', 'listing.*')
+                    ->select('categories.*', 'listing.*','listing.id as test_id')
                     ->Where('categories.id', $category_ID)
                     ->where('title', 'like', '%' . $keywords . '%')->get();
             } else {
                 $listing = \DB::table('listing')
                     ->join('categories', 'categories.id', '=', 'listing.cat_id')
-                    ->select('categories.*', 'listing.*')
+                    ->select('categories.*', 'listing.*','listing.id as test_id')
                     ->where('title', 'like', '%' . $keywords . '%')->get();
             }
         }
@@ -66,7 +65,7 @@ class ajaxController extends Controller
                         <div class="locationroute"></div>
                     </div>
                     <div class="listing-body">
-                    <h3><a href="listing/' . $item->id . '/details">' . $item->title . '</a></h3>
+                    <h3><a href="listing/' . $item->test_id . '/details">' . $item->test_id . '</a></h3>
                     <div class="listing-location">
                         <span>' . \Illuminate\Support\Str::limit(strip_tags($item->description), 50) . '</span>
                     </div>
