@@ -19,6 +19,34 @@ $(document).ready(function () {
                 console.log(response)
                 $('#listingsearchresults').html(response.markup)
                 liefletMapInIt()
+                // added route
+                var currentLocation
+                if (navigator.geolocation) {
+                    currentLocation = navigator.geolocation.getCurrentPosition(
+                        function (position) {
+                            jQuery('.lrn-listing-wrap').each(function (
+                                index,
+                                item
+                            ) {
+                                console.log(position.coords.latitude)
+                                console.log(position.coords.longitude)
+                                jQuery(item)
+                                    .find('.locationroute')
+                                    .html(
+                                        '<a target="_blank" href="https://www.google.es/maps/dir/' +
+                                            position.coords.latitude +
+                                            ',' +
+                                            position.coords.longitude +
+                                            '/' +
+                                            $(item).data('latitude') +
+                                            ',' +
+                                            $(item).data('longitude') +
+                                            '">Get Directions</a>'
+                                    )
+                            })
+                        }
+                    )
+                }
             },
         })
     }

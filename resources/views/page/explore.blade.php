@@ -38,7 +38,6 @@
                         @endif
                         </select>
                       </div>
-                      <div class="w-100"></div>
                       <div class="filter-distance">
                         <h5>Radius</h5>
                         <div class="price-range-slider">
