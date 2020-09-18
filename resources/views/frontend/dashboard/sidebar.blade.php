@@ -8,33 +8,17 @@
         <h4>{{Auth::user()->name}}</h4>
     </div>
 </div>
-
 <div class="lst-dash-side-nav">
     <ul class="dashboard-nav" id="dashboard-nav">
         <li class="navigation-item">
-            <a href="dashboard.html" class="active"><i class="fas fa-home"></i>Dashboard</a>
+            <a href="{{url("listing/profile")}}" class="{{ (request()->is('listing/profile')) ? 'active' : '' }}"><i class="fas fa-user"></i>Edit Profile</a>
         </li>
         <li class="navigation-item">
-            <a href="{{url("/listing/profile")}}"><i class="fas fa-user"></i>Edit Profile</a>
-        </li>
-        <li class="navigation-item dropdown">
-            <a href="#"><i class="fas fa-bolt"></i>My Listing</a>
-            <ul class="dropdown-menu">
-                <li><a href="{{url("/listing/all_listing")}}">All Listing</a></li>
-                <li><a href="{{url("/listing/active_listing")}}">Active Listing</a></li>
-                <li><a href="{{url("/listing/pending_listing")}}">Pending Listing</a></li>
-                <li><a href="{{url("/listing/expired_listing")}}">Expired Listing</a></li>
-            </ul>
+            <a href="{{url("listing/all_listing")}}" class="{{ (request()->is('listing/all_listing')) ? 'active' : '' }}"><i class="fas fa-bolt"></i>My Listing</a>
         </li>
         <li class="navigation-item">
-            <a href="{{url("/listing/add")}}"><i class="fas fa-plus-circle"></i>Add Listing</a>
-        </li>
-        <li class="navigation-item">
-            <a href="{{url("/listing/bookmarked")}}"><i class="fas fa-heart"></i>Bookmarked</a>
-        </li>
-        <li class="navigation-item">
-            <a href="{{url("/listing/review")}}"><i class="fas fa-star"></i>Review</a>
+            <a href="{{url("listing/add")}}" class="{{ (request()->is('listing/add')) ? 'active' : '' }}"><i class="fas fa-plus-circle"></i>Add Listing</a>
         </li>
     </ul>
-    <a href="#" class="logout-button">Logout</a>
+    <a href="{{url("logout")}}" class="logout-button">Logout</a>
 </div>

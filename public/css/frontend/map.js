@@ -1,219 +1,63 @@
 $(document).ready(function () {
-    'use strict';
+    'use strict'
 
     function initialize() {
-      $(".cp-map").each(function (index) {
+        $('.cp-map').each(function (index) {
+            //Taking data attribute from map wrapper
+            var mapLat = parseFloat($(this).data('lat'))
+            var mapLng = parseFloat($(this).data('lng'))
+            var mapZoom = parseInt($(this).data('zoom'))
+            var mapType = $(this).data('maptype')
 
-        //Taking data attribute from map wrapper
-        var mapLat = parseFloat($(this).data('lat'));
-        var mapLng = parseFloat($(this).data('lng'));
-        var mapZoom = parseInt($(this).data('zoom'));
-        var mapType = $(this).data('maptype');
+            var container = L.DomUtil.get('location')
+            if (container != null) {
+                container._leaflet_id = null
+            }
 
-        //Processing wrapper data attribute to coordinate
-        var mapOptions = {
-          center: {
-            lat: mapLat,
-            lng: mapLng
-          },
-          zoom: mapZoom,
-          mapTypeId: mapType,
-          scrollwheel: false,
-          styles: [
-                {
-                    "featureType": "water",
-                    "elementType": "geometry",
-                    "stylers": [
-                        {
-                            "color": "#e9e9e9"
-                        },
-                        {
-                            "lightness": 17
-                        }
-                    ]
-                },
-                {
-                    "featureType": "landscape",
-                    "elementType": "geometry",
-                    "stylers": [
-                        {
-                            "color": "#f5f5f5"
-                        },
-                        {
-                            "lightness": 20
-                        }
-                    ]
-                },
-                {
-                    "featureType": "road.highway",
-                    "elementType": "geometry.fill",
-                    "stylers": [
-                        {
-                            "color": "#ffffff"
-                        },
-                        {
-                            "lightness": 17
-                        }
-                    ]
-                },
-                {
-                    "featureType": "road.highway",
-                    "elementType": "geometry.stroke",
-                    "stylers": [
-                        {
-                            "color": "#ffffff"
-                        },
-                        {
-                            "lightness": 29
-                        },
-                        {
-                            "weight": 0.2
-                        }
-                    ]
-                },
-                {
-                    "featureType": "road.arterial",
-                    "elementType": "geometry",
-                    "stylers": [
-                        {
-                            "color": "#ffffff"
-                        },
-                        {
-                            "lightness": 18
-                        }
-                    ]
-                },
-                {
-                    "featureType": "road.local",
-                    "elementType": "geometry",
-                    "stylers": [
-                        {
-                            "color": "#ffffff"
-                        },
-                        {
-                            "lightness": 16
-                        }
-                    ]
-                },
-                {
-                    "featureType": "poi",
-                    "elementType": "geometry",
-                    "stylers": [
-                        {
-                            "color": "#f5f5f5"
-                        },
-                        {
-                            "lightness": 21
-                        }
-                    ]
-                },
-                {
-                    "featureType": "poi.park",
-                    "elementType": "geometry",
-                    "stylers": [
-                        {
-                            "color": "#dedede"
-                        },
-                        {
-                            "lightness": 21
-                        }
-                    ]
-                },
-                {
-                    "elementType": "labels.text.stroke",
-                    "stylers": [
-                        {
-                            "visibility": "on"
-                        },
-                        {
-                            "color": "#ffffff"
-                        },
-                        {
-                            "lightness": 16
-                        }
-                    ]
-                },
-                {
-                    "elementType": "labels.text.fill",
-                    "stylers": [
-                        {
-                            "saturation": 36
-                        },
-                        {
-                            "color": "#333333"
-                        },
-                        {
-                            "lightness": 40
-                        }
-                    ]
-                },
-                {
-                    "elementType": "labels.icon",
-                    "stylers": [
-                        {
-                            "visibility": "off"
-                        }
-                    ]
-                },
-                {
-                    "featureType": "transit",
-                    "elementType": "geometry",
-                    "stylers": [
-                        {
-                            "color": "#f2f2f2"
-                        },
-                        {
-                            "lightness": 19
-                        }
-                    ]
-                },
-                {
-                    "featureType": "administrative",
-                    "elementType": "geometry.fill",
-                    "stylers": [
-                        {
-                            "color": "#fefefe"
-                        },
-                        {
-                            "lightness": 20
-                        }
-                    ]
-                },
-                {
-                    "featureType": "administrative",
-                    "elementType": "geometry.stroke",
-                    "stylers": [
-                        {
-                            "color": "#fefefe"
-                        },
-                        {
-                            "lightness": 17
-                        },
-                        {
-                            "weight": 1.2
-                        }
-                    ]
-                }
-            ]
-        };
+            var tiles = L.tileLayer(
+                    'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}',
+                    {
+                        attribution:
+                            'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                        maxZoom: 18,
+                        id: 'mapbox/streets-v11',
+                        tileSize: 512,
+                        zoomOffset: -1,
+                        accessToken:
+                            'pk.eyJ1IjoidHVzaGFyOTkwOSIsImEiOiJja2QxanV1NzIwNGJmMnpueG50dGtzZmlwIn0.5pTJYB1OzUhkO7k357E1Ww',
+                    }
+                ),
+                latlng = L.latLng(mapLat, mapLng)
 
-        //Initiating map
-        var map = new google.maps.Map(this, mapOptions);
+            var map = L.map('location', {
+                center: latlng,
+                zoom: 14,
+                scrollWheelZoom: false,
+                layers: [tiles],
+            })
 
-        //Map Marker
-        var marker = new google.maps.Marker({
-          position: {
-            lat: 40.713355,
-            lng: -74.005535
-          },
-          map: map,
-          icon: 'images/map-marker.png'
-        });
-      });
+            var LeafIcon = L.Icon.extend({
+                options: {
+                    shadowUrl: 'leaf-shadow.png',
+                    iconSize: [38, 95],
+                    shadowSize: [50, 64],
+                    iconAnchor: [22, 94],
+                    shadowAnchor: [4, 62],
+                    popupAnchor: [-3, -76],
+                },
+            })
+
+            var greenIcon = new LeafIcon({
+                iconUrl:
+                    'https://maps.gstatic.com/mapfiles/api-3/images/spotlight-poi2.png',
+            })
+
+            L.marker([mapLat, mapLng], { icon: greenIcon }).addTo(map)
+        })
     }
-    google.maps.event.addDomListener(window, 'load', initialize);
+    initialize()
 
     $('#listingModal').on('shown.bs.modal', function () {
-      initialize();
+        initialize()
     })
-});
+})

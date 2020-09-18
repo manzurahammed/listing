@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DashBoardController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,35 +14,36 @@
 */
 
 Auth::routes();
-Route::get('/', 'DashBoardController@index')->name('home');
-
+Route::get('/', 'ExploreController@mainPage')->name('main');
+Route::get('/search', 'ExploreController@index')->name('home');
+Route::get('/admin', 'DashBoardController@index')->name('admin');
+Route::post('/searchmap', 'ajaxController@searchFilter');
+Route::get('listing/{id}/details', 'frontend\ListingController@listingDetails');
 
 Route::group(['middleware' => 'auth'], function () {
-    
-    Route::prefix('listing')->group(function () {
-        Route::get('/', 'frontend\DashBoardController@index');
-        Route::get('/profile', 'frontend\DashBoardController@editProfile');
-        Route::put('/profilestore/{id}',array('uses' => 'frontend\DashBoardController@updateProfile', 'as' => 'listing.profile'));
-        Route::get('/all_listing', 'frontend\ListingController@viewListing');
-        Route::get('/active_listing', 'frontend\ListingController@activeListing');
-        Route::get('/pending_listing', 'frontend\ListingController@pendingListing');
-        Route::get('/expired_listing', 'frontend\ListingController@expiredListing');
-        Route::get('/add', 'frontend\ListingController@addListing');
-        Route::get('/{id}/edit', 'frontend\ListingController@editListing');
-        Route::post('/savelisting', 'frontend\ListingController@savelisting');
-        Route::get('/bookmarked', 'frontend\ListingController@bookmarked');
-        Route::get('/review', 'frontend\ListingController@review');
-        Route::delete('/delete/{id}',array('uses' => 'frontend\ListingController@deleteListing', 'as' => 'listing.delete'));
-        Route::put('/store/{id}',array('uses' => 'frontend\ListingController@updateListing', 'as' => 'listing.update'));
-    });
-    
+	Route::prefix('listing')->group(function () {
+		Route::get('/', 'frontend\DashBoardController@index');
+		Route::get('/profile', 'FrontendController@editProfile');
+		Route::put('/profilestore/{id}', array('uses' => 'FrontendController@updateProfile', 'as' => 'listing.profile'));
+		Route::get('/all_listing', 'frontend\ListingController@viewListing');
+		Route::get('/active_listing', 'frontend\ListingController@activeListing');
+		Route::get('/pending_listing', 'frontend\ListingController@pendingListing');
+		Route::get('/expired_listing', 'frontend\ListingController@expiredListing');
+		Route::get('/add', 'frontend\ListingController@addListing');
+		Route::get('/{id}/edit', 'frontend\ListingController@editListing');
+		Route::post('/savelisting', 'frontend\ListingController@savelisting');
+		Route::get('/bookmarked', 'frontend\ListingController@bookmarked');
+		Route::get('/review', 'frontend\ListingController@review');
+		Route::delete('/delete/{id}', array('uses' => 'frontend\ListingController@deleteListing', 'as' => 'listing.delete'));
+		Route::put('/store/{id}', array('uses' => 'frontend\ListingController@updateListing', 'as' => 'listing.update'));
+	});
 	Route::resources([
-	    'categories' => 'CategoryController',
-	    'cities' => 'CityController',
-	    'amenties' => 'AmentiesController',
-	    'papersize' => 'PaperSizeController',
-	    'users' => 'UserController',
-	    'pages' => 'PageController',
+		'categories' => 'CategoryController',
+		'cities' => 'CityController',
+		'amenties' => 'AmentiesController',
+		'papersize' => 'PaperSizeController',
+		'users' => 'UserController',
+		'pages' => 'PageController',
 	]);
 	Route::get('/dashboard', 'DashBoardController@index');
 	Route::get('/catpaper', 'CatPaperController@index');
