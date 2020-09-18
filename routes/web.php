@@ -14,7 +14,8 @@ use App\Http\Controllers\DashBoardController;
 */
 
 Auth::routes();
-Route::get('/', 'ExploreController@index')->name('home');
+Route::get('/', 'ExploreController@mainPage')->name('main');
+Route::get('/search', 'ExploreController@index')->name('home');
 Route::get('/admin', 'DashBoardController@index')->name('admin');
 Route::post('/searchmap', 'ajaxController@searchFilter');
 Route::get('listing/{id}/details', 'frontend\ListingController@listingDetails');

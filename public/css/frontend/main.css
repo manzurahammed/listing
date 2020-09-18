@@ -303,7 +303,7 @@ a:focus {
 	02.0 Header Style
 -----------------------------------------------*/
 .header-bg-1 {
-    background: url('../images/bg/banner-bg-1.jpg') no-repeat center;
+    background: url('../../images/frontend/banner-bg-1.jpg') no-repeat center;
     background-size: cover;
 }
 
@@ -6082,7 +6082,7 @@ select:-webkit-autofill:focus {
 	10.0 Footer Style
 -----------------------------------------------*/
 .footer-bg {
-    background: url(../images/bg/footer-bg.jpg) no-repeat center;
+    background: url(../../images/frontend/footer-bg.jpg) no-repeat center;
     background-size: cover;
 }
 
