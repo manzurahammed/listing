@@ -23,9 +23,15 @@ class ExploreController extends Controller
     public function mainPage(){
         $categories = Categories::select('id','name','slug','show_nav','image')->where('show_nav',1)->paginate(5);
         $listing = Listing::where('status',0)->with('catname')->paginate(5);
+        $city = Listing::join('city','city.id','=','listing.city_id')
+            ->select(\DB::raw('count(listing.id) as total'),'city_id','city.name','city.image')
+            ->groupBy('city_id')
+            ->limit(5)
+            ->get();
         return view('welcome',[
             'categories' => $categories,
-            'listing' => $listing
+            'listing' => $listing,
+            'city' => $city
         ]);
     }
 }

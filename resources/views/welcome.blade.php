@@ -7,10 +7,6 @@
 
     <title>Home</title>
 
-
-    <!-- Custom Css -->
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Rubik:400,500%7CSignika:400,600,700" rel="stylesheet">
 
@@ -18,16 +14,9 @@
     <link href="{{ asset('css/frontend/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/frontend/css/fontawesome-all.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/frontend/css/themify-icons.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/frontend/css/et-line.css') }}" rel="stylesheet">
     <link href="{{ asset('css/frontend/css/owl.carousel.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/frontend/css/slick.css') }}" rel="stylesheet">
     <link href="{{ asset('css/frontend/css/plyr.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/frontend/css/jquery.timepicker.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/frontend/css/jquery.nstSlider.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/frontend/css/datepicker.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/frontend/css/select2.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/frontend/css/wickedpicker.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/frontend/css/select2-bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/frontend/main.css') }}" rel="stylesheet">
 
 
@@ -151,41 +140,34 @@
             <div class="col">
                 <div class="citys">
                     <div class="grid-sizer col-md-6 col-12 col-lg-3"></div>
-                    <a href="#" class="city-item item-one width-2">
-                        <img src="images/city/1.jpg" class="img-fluid" alt="">
-                        <div class="text">
-                            <h3>Los Angeles</h3>
-                            <span>13 Listings</span>
-                        </div>
-                    </a>
-                    <a href="#" class="city-item item-two width-2 height-1">
-                        <img src="images/city/2.jpg" class="img-fluid" alt="">
-                        <div class="text">
-                            <h3>Chicago</h3>
-                            <span>9 Listings</span>
-                        </div>
-                    </a>
-                    <a href="#" class="city-item item-three width-2">
-                        <img src="images/city/3.jpg" class="img-fluid" alt="">
-                        <div class="text">
-                            <h3>San Francisco</h3>
-                            <span>8 Listings</span>
-                        </div>
-                    </a>
-                    <a href="#" class="city-item item-four width-1 height-1">
-                        <img src="images/city/5.jpg" class="img-fluid" alt="">
-                        <div class="text">
-                            <h3>California</h3>
-                            <span>15 Listings</span>
-                        </div>
-                    </a>
-                    <a href="#" class="city-item item-five width-1 height-1">
-                        <img src="images/city/4.jpg" class="img-fluid" alt="">
-                        <div class="text">
-                            <h3>New York</h3>
-                            <span>24 Listings</span>
-                        </div>
-                    </a>
+                    @if ($city->isNotEmpty())
+                        @foreach ($city as $key => $item)
+                            @php ($image = '/upload/default.gif')
+                            @if($item->image !='')
+                                @php ($image = 'upload/city_image/'.$item->image)
+                            @endif
+
+                            <?php
+                                $width = ($key==3 || $key==4)?"width-1" :'width-2';
+                                $arr = [
+                                    'item-one',
+                                    'item-two',
+                                    'item-three',
+                                    'item-four',
+                                    'item-five',
+                                ];
+                            $height = ( $key == 0 || $key == 2)?'': 'height-1';
+
+                            ?>
+                            <a href="{{"/search"}}" class="city-item {{$arr[$key]}} {{$width}} {{$height}}">
+                                {{Html::image($image,'profile picture',array('class' => 'img-fluid'))}}
+                                <div class="text">
+                                    <h3>{{$item->name}}</h3>
+                                    <span>{{$item->total}} Listings</span>
+                                </div>
+                            </a>
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>
@@ -286,7 +268,7 @@
                 <div class="col-lg-3 col-sm-6">
                     <div class="footer-widget footer-about">
                         <div class="logo">
-                            <img src="images/footer-logo.png" class="img-fluid" alt="">
+                            <img src="{{ asset('images/frontend/footer-logo.png') }}" class="img-fluid" alt="">
                         </div>
                         <p class="copyright-text">© 2019 <a href="#">Listereon</a>. By <a href="#">CodePassergers</a> All Rights Reserved</p>
                         <div class="social-links">
@@ -331,88 +313,12 @@
             </div>
         </div>
     </div>
-    <div class="footer-bottom">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-2 order-lg-2">
-                    <div class="apps-download">
-                        <a href="#" class="app-download apple">
-                            <img src="images/app/apple.png" class="img-fluid" alt="">
-                        </a>
-                        <a href="#" class="app-download android">
-                            <img src="images/app/android.png" class="img-fluid" alt="">
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-5 order-lg-1">
-                    <ul class="footer-nav">
-                        <li><a href="#">Terms of Use</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-5 order-lg-3">
-                    <div class="backtotop">
-                        <a href="#">Back to Top<i class="fas fa-angle-up"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
 </footer>
 <!-- Footer End -->
 
 
 <!-- Modal -->
-<div class="modal fade listing-modal" id="listingModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="listing-side">
-                    <div class="lrn-listing-wrap">
-                        <div class="listing-thumb">
-                            <img src="images/listing/3.jpg" class="img-fluid" alt="">
-                        </div>
-                        <div class="listing-body">
-                            <div class="meta">
-                                <a href="#" class="avater">
-                                    <img src="images/listing/avater-3.jpg" class="img-fluid" alt="">
-                                </a>
-                                <a href="#" class="favourite"><span class="ti-heart"></span></a>
-                            </div>
-                            <h3><a href="#">Sam’s Property</a></h3>
-                            <div class="reviews">
-                                <div class="rating">3.9</div>
-                                <span>8 Reviews</span>
-                            </div>
-                            <div class="listing-location">
-                                <div class="icon">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                </div>
-                                <span>1178 Winifred Way, Indianapolis, IN 46254</span>
-                            </div>
-                            <div class="listing-category">
-                                <div class="icon"><i class="fab fa-pagelines"></i></div>
-                                <span><a href="#">Real Estate</a></span>
-                            </div>
-                            <div class="listing-bottom">
-                                <span><i class="fas fa-phone"></i>+50 125 145601</span>
-                                <span class="status open"><i class="far fa-clock"></i>Open Now</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="listing-location-side">
-                    <div class="cp-map listing-modal-map" id="location" data-lat="40.713355" data-lng="-74.005535" data-zoom="10"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script src="{{ asset('css/frontend/js/jquery.min.js') }}"></script>
 <script src="{{ asset('css/frontend/js/popper.min.js') }}"></script>
@@ -433,8 +339,7 @@
 <script src="{{ asset('css/frontend/js/tinymce.min.js') }}"></script>
 <script src="{{ asset('css/frontend/js/jquery.nstSlider.min.js') }}"></script>
 <script src="{{ asset('css/frontend/js/wickedpicker.min.js') }}"></script>
-<script src="{{ asset('css/frontend/js/jquery.ajaxchimp.min.js') }}"></script>
-<script src="{{ asset('css/frontend/js/chart.js') }}"></script>
+
 
 <script src="{{ asset('css/frontend/custom.js') }}"></script>
 
