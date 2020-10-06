@@ -110,7 +110,7 @@
                             @foreach ($categories as $key=> $item)
                                 @php ($image = '/upload/default.gif')
                                 @if($item->image !='')
-                                    @php ($image = 'upload/cat_image/'.$item->image)
+                                    @php ($image = 'upload/cat_image/'.$item->icon)
                                 @endif
                                 <a href="{{'/search'}}" class="category-item">
                                     {{Html::image($image,'profile picture',array('class' => 'img-fluid'))}}
@@ -192,6 +192,8 @@
 
                     @if ($listing->isNotEmpty())
                         @foreach ($listing as $key=> $item)
+                            @php ($icon = "/upload/default_image/avater-".rand(1,5).".jpg")
+
                             @php ($image = '/upload/default.gif')
                             @if($item->feature_image !='')
                                 @php ($image = 'feature_image/'.$item->feature_image)
@@ -205,12 +207,11 @@
                                     <div class="listing-body">
                                         <div class="meta">
                                             <a href="{{'/search'}}" class="avater">
-                                                <img src="{{ asset('images/frontend/avater-1.jpg') }}" class="img-fluid" alt="">
+                                                <img src="{{ $icon }}" class="img-fluid" alt="">
                                             </a>
                                             <a href="#" class="favourite"><span class="ti-heart"></span></a>
-                                            <a href="#" class="preview" data-toggle="modal" data-target="#listingModal"><span class="ti-eye"></span></a>
                                         </div>
-                                        <h3 class="varified"><a href="#">{{$item->title}}</a></h3>
+                                        <h3 class="varified"><a href="{{"listing/{$item->id}/details"}}">{{$item->title}}</a></h3>
                                         <div class="reviews">
                                             <div class="rating">3.9</div>
                                             <span>13 Reviews</span>
@@ -223,7 +224,7 @@
                                         </div>
                                         <div class="listing-category">
                                             <div class="icon"><i class="fas fa-coffee"></i></div>
-                                            <span><a href="#">{{$item->catname->name}}</a></span>
+                                            <span><a href="{{'/search'}}">{{$item->catname->name}}</a></span>
                                         </div>
                                         <div class="listing-bottom">
                                             <span><i class="fas fa-phone"></i>{{$item->phone}}</span>

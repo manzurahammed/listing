@@ -55,6 +55,20 @@
 
 			<div class="m-form__group form-group row">
 				<label class="col-lg-2 col-form-label">
+					Category Icon
+				</label>
+				<div class="col-lg-6">
+					<div class="m-checkbox-inline pp-inline">
+						<label class="custom-file">
+							{{Form::file('icon',array('class'=>'custom-file-input'))}}
+							<span class="custom-file-control"></span>
+						</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="m-form__group form-group row">
+				<label class="col-lg-2 col-form-label">
 					@lang('trn.SHOW_NAV')
 				</label>
 				<div class="col-lg-6">

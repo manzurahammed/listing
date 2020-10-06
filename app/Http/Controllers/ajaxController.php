@@ -56,25 +56,45 @@ class ajaxController extends Controller
         $markup = '<div class="row">';
         if (count($listing) > 0) {
             foreach ($listing as $item) {
-                $markup .= '<div class="col-lg-4 col-md-6 map-top-result-item">';
+                $icon = "/upload/default_image/avater-".rand(1,5).".jpg";
+                $markup .= '<div class="result-item col-md-6 map-top-result-item">';
                 $markup .= '<div class="lrn-listing-wrap" data-latitude="' . $item->latitude . '" data-longitude="' . $item->longitude . '" data-mapicon="' . url('upload/cat_image/' . $item->image) . '">
                     <div class="listing-thumb">
                         <a href="listing/' . $item->listing_id . '/details">
                             <img class="img-fluid" src="' . url('feature_image/' . $item->feature_image) . '" alt="featured image" />
                         </a>
-                        <div class="locationroute"></div>
                     </div>
                     <div class="listing-body">
-                    <h3><a href="listing/' . $item->listing_id . '/details">' . $item->title . '</a></h3>
-                    <div class="listing-location">
-                        <span>' . \Illuminate\Support\Str::limit(strip_tags($item->description), 50) . '</span>
-                    </div>
-                    <div class="listing-category">
-                        <div class="icon">
-                        <img class="img-fluid" src="' . url('upload/cat_image/' . $item->image) . '" alt="icon" />
+                        <div class="meta">
+                            <a href="/search" class="avater">
+                                <img src="'.$icon.'" class="img-fluid" alt="">
+                            </a>
+                            <a href="#" class="favourite"><span class="ti-heart"></span></a>
+                            <a href="listing/'.$item->id.'/details" class="preview" ><span class="ti-eye"></span></a>
+                            
                         </div>
-                    <span><a href="#">' . $item->name . '</a></span>
-                    </div>
+                        <h3 class="varified"><a href="listing/' . $item->listing_id . '/details">' . $item->title . '</a></h3>
+                        <div class="reviews">
+                            <div class="rating">3.9</div>
+                            <span>13 Reviews</span>
+                        </div>
+                        <div class="listing-location">
+                            <div class="icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <span>'.$item->website.'</span>
+                        </div>
+                        
+                        <div class="listing-category">
+                            <div class="icon">
+                                <img class="img-fluid" src="' . url('upload/cat_image/' . $item->image) . '" alt="icon" />
+                            </div>
+                            <span><a href="/search">' . $item->name . '</a></span>
+                        </div>
+                        <div class="listing-bottom">
+                            <span><i class="fas fa-phone"></i>'.$item->phone.'</span>
+                            <span class="status open"><i class="far fa-clock"></i>Open Now</span>
+                        </div>
                     </div>
                 </div>';
                 $markup .= '</div>';

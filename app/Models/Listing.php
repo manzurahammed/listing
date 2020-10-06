@@ -11,6 +11,6 @@ class Listing extends Model
     protected $guarded = [];
     protected $table   = 'listing';
     public function catname(){
-        return $this->belongsTo('App\Models\Categories','cat_id')->select(array('id','name'));
+        return $this->belongsTo('App\Models\Categories','cat_id')->select(array('id','name','image'));
     }
 }

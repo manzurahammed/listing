@@ -110,7 +110,7 @@ $(document).ready(function () {
 
             $('.listing-result-block .row .map-top-result-item')
                 .removeClass('col-12')
-                .addClass('col-lg-4 col-md-6')
+                .addClass('col-md-6')
             $('.map-top-result-item .lrn-listing-wrap').removeClass(
                 'listing-list'
             )
@@ -123,7 +123,7 @@ $(document).ready(function () {
             $('.result-item .lrn-listing-wrap').addClass('listing-list')
 
             $('.listing-result-block .row .map-top-result-item')
-                .removeClass('col-lg-4 col-md-6')
+                .removeClass('col-md-6')
                 .addClass('col-12')
             $('.map-top-result-item .lrn-listing-wrap').addClass('listing-list')
         }

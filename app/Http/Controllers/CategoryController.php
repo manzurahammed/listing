@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Validator;
 Use Auth;
 use Illuminate\Support\Facades\File;
 use App\Models\Categories;
+
 class CategoryController extends Controller
 {
-	
 	public function __construct(){
 		$this->middleware('auth');
 	}
@@ -17,7 +18,7 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index(Request $request)
     {
@@ -28,7 +29,7 @@ class CategoryController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -38,8 +39,8 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -60,6 +61,15 @@ class CategoryController extends Controller
 			    $categories['image'] = $imageName;
 		    }
 	    }
+    
+        if ($request->hasFile('icon')) {
+            $image = $request->file('icon');
+            $imageName = 'icon'.rand().'.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path().'/upload/cat_image';
+            if($image->move($destinationPath,$imageName)){
+                $categories['icon'] = $imageName;
+            }
+        }
         
         if($categories->save()){
             $request->session()->flash('status',array('title'=>'Create Category SuccessFully','type'=>'success'));
@@ -73,7 +83,7 @@ class CategoryController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -84,7 +94,7 @@ class CategoryController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit($id)
     {
@@ -95,9 +105,9 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -120,7 +130,17 @@ class CategoryController extends Controller
 			    $categories->image = $imageName;
 		    }
 	    }
-        
+    
+        if ($request->hasFile('icon')) {
+            $mainImg = $categories->icon;
+            $image = $request->file('icon');
+            $imageName = 'icon'.rand().'.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path().'/upload/cat_image';
+            if($image->move($destinationPath,$imageName)){
+                File::delete(public_path().'/upload/cat_image/'.$mainImg);
+                $categories->icon = $imageName;
+            }
+        }
         
         if($categories->save()){
             $request->session()->flash('status',array('title'=>' Category Update SuccessFully','type'=>'success'));
@@ -129,12 +149,13 @@ class CategoryController extends Controller
         $request->session()->flash('status',array('title'=>'Failed To Update','type'=>'danger'));
         return redirect('categories/'.$categories->id.'/edit'); 
     }
-
+    
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return Response
      */
     public function destroy(Request $request,$id)
     {
@@ -148,8 +169,7 @@ class CategoryController extends Controller
     }
 	
 	public function createSlug($str, $delimiter = '-'){
-		$slug = strtolower(trim(preg_replace('/[\s-]+/', $delimiter, preg_replace('/[^A-Za-z0-9-]+/', $delimiter, preg_replace('/[&]/', 'and', preg_replace('/[\']/', '', iconv('UTF-8', 'ASCII//TRANSLIT', $str))))), $delimiter));
-		return $slug;
+		return strtolower(trim(preg_replace('/[\s-]+/', $delimiter, preg_replace('/[^A-Za-z0-9-]+/', $delimiter, preg_replace('/[&]/', 'and', preg_replace('/[\']/', '', iconv('UTF-8', 'ASCII//TRANSLIT', $str))))), $delimiter));
 	}
 
     public function show_nav(Request $request){
