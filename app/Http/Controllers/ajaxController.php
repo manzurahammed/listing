@@ -118,8 +118,9 @@ class ajaxController extends Controller
         $review->user_id = Auth::user()->id;
         
         if ( $review->save() ) {
-            $view = view('page.review');
-            return response()->json(array('success' => true, 'payload' => $view));
+            $title = "HDTuto.com";
+            $html = view('page.review')->with(compact('title'))->render();
+            return response()->json(array('success' => true, 'payload' => $html));
         }else{
             return response()->json(array('success' => false));
         }
