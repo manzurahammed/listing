@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Auth;
+use App\Models\Review;
+use Illuminate\Http\Response;
 class ajaxController extends Controller
 {
     public function searchFilter(Request $request)
@@ -105,5 +107,21 @@ class ajaxController extends Controller
         $markup .= '</div>';
 
         return response()->json(array('markup' => $markup), 200);
+    }
+    
+    public function save_review(Request $request){
+        $review = new Review();
+        $review->rating = $request->input( 'listing_rating' );
+        $review->description = $request->input( 'listing_description' );
+        $review->title = $request->input( 'listing_title' );
+        $review->listing_id = $request->input( 'listing_id' );
+        $review->user_id = Auth::user()->id;
+        
+        if ( $review->save() ) {
+            $view = view('page.review');
+            return response()->json(array('success' => true, 'payload' => $view));
+        }else{
+            return response()->json(array('success' => false));
+        }
     }
 }

@@ -19,7 +19,7 @@ class AmentiesController extends Controller
 	 */
 	public function index()
 	{
-		$amenties = Amenties::select('id', 'name')->paginate(20);
+		$amenties = Amenties::select('id', 'name','icon_class')->paginate(20);
 		return view('amenties.index')->with(compact('amenties'));
 	}
 	

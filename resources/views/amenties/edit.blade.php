@@ -24,7 +24,16 @@
 				</label>
 				<div class="col-lg-4">
 					{!!Form::text('name',$amenties->name,array('class'=>'form-control m-input'))!!}
-
+				</div>
+			</div>
+		</div>
+		<div class="m-portlet__body">
+			<div class="form-group m-form__group row">
+				<label class="col-lg-2 col-form-label">
+					Icon Class
+				</label>
+				<div class="col-lg-4">
+					{!!Form::text('icon_class',$amenties->icon_class,array('class'=>'form-control m-input'))!!}
 				</div>
 			</div>
 		</div>

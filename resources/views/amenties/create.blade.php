@@ -26,8 +26,14 @@
 					<input type="text" name="name" value="{{old('name')}}" class="form-control m-input" placeholder="@lang('trn.NAME')">
 				</div>
 			</div>
-
-
+			<div class="form-group m-form__group row">
+				<label class="col-lg-2 col-form-label">
+					Icon Class
+				</label>
+				<div class="col-lg-4">
+					<input type="text" name="icon_class" value="{{old('icon_class')}}" class="form-control m-input" placeholder="Icon Class">
+				</div>
+			</div>
 		</div>
 		<div class="m-portlet__foot m-portlet__no-border m-portlet__foot--fit">
 			<div class="m-form__actions m-form__actions--solid">

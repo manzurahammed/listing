@@ -311,7 +311,7 @@ class ListingController extends Controller
 
     public function getAmenities()
     {
-        return $categories = Amenties::select('name', 'id')->get();
+        return $categories = Amenties::select('name', 'id','icon_class')->get();
     }
 
     /**

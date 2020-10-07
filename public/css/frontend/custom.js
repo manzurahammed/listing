@@ -584,4 +584,22 @@ $(document).ready(function () {
     $(window).on('resize orientationchange', function () {
         selectFun()
     })
+
+    $("#listing_form").on('submit',function(e){
+        e.preventDefault();
+        var value = $( this ).serialize();
+
+        $.ajax({
+            type: 'POST',
+            url: '/save_review',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            },
+            data:value,
+            success: function (response) {
+
+            },
+        })
+    });
+
 })

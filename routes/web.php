@@ -18,6 +18,7 @@ Route::get('/', 'ExploreController@mainPage')->name('main');
 Route::get('/search', 'ExploreController@index')->name('home');
 Route::get('/admin', 'DashBoardController@index')->name('admin');
 Route::post('/searchmap', 'ajaxController@searchFilter');
+Route::post('/save_review', 'ajaxController@save_review');
 Route::get('listing/{id}/details', 'frontend\ListingController@listingDetails');
 
 Route::group(['middleware' => 'auth'], function () {

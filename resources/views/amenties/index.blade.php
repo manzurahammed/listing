@@ -47,6 +47,9 @@
 						<th class="m-widget11__app">
 							Name
 						</th>
+						<th class="m-widget11__app">
+							Icon
+						</th>
 						<th class="m-widget11__price">
 							Action
 						</th>
