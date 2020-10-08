@@ -8,7 +8,7 @@
         </div>
         <div class="dashboard-section-body">
             <div class="my-listing-wrapper">
-                @if ($listing->isNotEmpty())
+                @if (!empty($listing))
                     @foreach ($listing as $key => $item)
 
                         @php ($image = 'feature_image/'.$item->feature_image)
@@ -22,7 +22,7 @@
                                 <div class="content">
                                     <h4><a href="{{url("/listing/{$item->id}/details")}}">{{$item->title}}</a></h4>
                                     <p class="listing-address">715 Eagle Drive MI 4821</p>
-                                    <p class="listing-meta"><span class="review"><span class="rating">4.5</span>13 Reviews</span> <span class="view"><i class="fas fa-eye"></i>256 Views</span> <span class="favroute"><i class="fas fa-heart"></i>35 Favorites</span></p>
+                                    <p class="listing-meta"><span class="review"><span class="rating">{{($item->rating>0)?number_format($item->rating,2):0}}</span>{{$item->total_rating}} Reviews</span> <span class="view"><i class="fas fa-eye"></i>{{$item->total_view}} Views</span></p>
                                 </div>
                                 <div class="controller">
                                     <a href="{{url("/listing/{$item->id}/edit")}}" class="edit"><i class="fas fa-edit"></i></a>
@@ -35,13 +35,6 @@
                 @endforeach
                 @else
                     @lang('trn.NO_DATA_FOUND')
-                @endif
-                @if ($listing->isNotEmpty())
-                    <nav class="navigation pagination text-center mar-30">
-                        <div class="nav-links">
-                            {{$listing->links() }}
-                        </div>
-                    </nav>
                 @endif
             </div>
         </div>

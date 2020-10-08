@@ -37,9 +37,10 @@ class ListingController extends Controller
     public function viewListing()
     {
         $user_id = Auth::user()->id;
-        $listing = Listing::where('created_by',$user_id)->paginate( 20 );
+        $listing = DB::select( DB::raw("select lis.*,latitude,total_view,(sum(rating)/count(rev.id)) as rating,count(rev.id) total_rating from listing lis left join review as rev on lis.id = rev.listing_id  group by lis.id") );
+        
         return view( 'frontend.dashboard.listing' )->with( [
-            'listing' => $listing
+            'listing' => (object)$listing
         ] );
     }
     

@@ -16,4 +16,9 @@ class Listing extends Model
     public function ruser(){
         return $this->belongsTo('App\User','created_by')->select(array('id','name','image','email'));
     }
+    
+    public function review(){
+        return $this->belongsTo('App\Models\Review','listing_id','id')->select(array('reviews.id','review.title'));
+    }
+    
 }
