@@ -19,11 +19,12 @@ Route::get('/search', 'ExploreController@index')->name('home');
 Route::get('/admin', 'DashBoardController@index')->name('admin');
 Route::post('/searchmap', 'ajaxController@searchFilter');
 Route::post('/save_review', 'ajaxController@save_review');
+Route::post('/save_favorite', 'ajaxController@save_favorite');
 Route::get('listing/{id}/details', 'frontend\ListingController@listingDetails');
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::prefix('listing')->group(function () {
-		Route::get('/', 'frontend\DashBoardController@index');
+		Route::get('/', 'frontend\ListingController@dashboard');
 		Route::get('/profile', 'FrontendController@editProfile');
 		Route::put('/profilestore/{id}', array('uses' => 'FrontendController@updateProfile', 'as' => 'listing.profile'));
 		Route::get('/all_listing', 'frontend\ListingController@viewListing');
@@ -38,6 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::delete('/delete/{id}', array('uses' => 'frontend\ListingController@deleteListing', 'as' => 'listing.delete'));
 		Route::put('/store/{id}', array('uses' => 'frontend\ListingController@updateListing', 'as' => 'listing.update'));
 	});
+	
 	Route::resources([
 		'categories' => 'CategoryController',
 		'cities' => 'CityController',

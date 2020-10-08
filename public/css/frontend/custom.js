@@ -587,8 +587,8 @@ $(document).ready(function () {
 
     $("#listing_form").on('submit',function(e){
         e.preventDefault();
-        var value = $( this ).serialize();
-
+        var value = $( this ).serialize(),
+        $this = $(this);
         $.ajax({
             type: 'POST',
             url: '/save_review',
@@ -598,8 +598,36 @@ $(document).ready(function () {
             data:value,
             success: function (response) {
                 if(response.success){
+                    $(".review-no-found").remove();
+                    $this.trigger("reset");
                     $(".listing-review").append(response.payload);
+                }else{
+                    alert(response.message);
                 }
+            },
+        })
+    });
+
+    $(".lisitng-favorite").on('click',function(e){
+        e.preventDefault();
+        var $this = $(this),
+            listing_id = $this.data('listing-id');
+
+        if(listing_id<1){
+            alert("No Listing Found");
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '/save_favorite',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            },
+            data:{
+                'listing_id':listing_id
+            },
+            success: function (response) {
+                alert(response.message);
             },
         })
     });

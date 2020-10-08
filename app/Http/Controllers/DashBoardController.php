@@ -6,9 +6,13 @@ use Illuminate\Http\Request;
 
 class DashBoardController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
+    public function __construct(){
+        $this->middleware(function ($request, $next) {
+            if(!Auth::check() && Auth::user()->role!=1){
+                return redirect('/');
+            }
+            return $next($request);
+        });
     }
 
     public function index()

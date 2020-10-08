@@ -28,7 +28,7 @@
             <div class="col-lg-6">
                 <div class="listing-details-meta">
                     <div class="save">
-                        <a href="#"><i class="far fa-heart"></i>Save</a>
+                        <a class="lisitng-favorite" data-listing-id="{{$listing->id}}" href="#"><i class="far fa-heart"></i>Save</a>
                     </div>
                     <div class="listing-share">
                         <a href="#" class="listing-share-button"><i class="fas fa-share-alt"></i>Share</a>
@@ -71,8 +71,8 @@
                         <div class="col-lg-6">
                             <div class="listing-header-review">
                                 <div class="rating">
-                                    <p>122<br>Reviews</p>
-                                    <span class="total-rating">4.5</span>
+                                    <p>{{$review->count()}}<br>Reviews</p>
+                                    <span class="total-rating">{{$total_rating/$review->count()}}</span>
                                 </div>
                                 <div class="add-review">
                                     <a href="#"><i class="fas fa-star"></i>Add Review</a>
@@ -107,51 +107,33 @@
                     <div id="video-player" data-plyr-provider="youtube" data-plyr-embed-id="{{$listing->video_url}}"></div>
                 </div>
                 <div class="listing-details-section listing-review">
-                    <h4>2 Reviews for: {{$listing->title}}</h4>
-                    <div class="listing-review-block">
-                        <div class="review-header">
-                            <div class="thumb">
-                                <img src="/images/customer-1.jpg" class="img-fluid" alt="">
+                    <h4>Reviews for: {{$listing->title}}</h4>
+                    @if ($review->isNotEmpty())
+                        @foreach ($review as $key => $item)
+                            <div class="listing-review-block">
+                                <div class="review-header">
+                                    <div class="thumb">
+                                        <img src="{{url('upload/'.$item->ruser->image)}}" class="img-fluid" alt="">
+                                    </div>
+                                    <div class="header-info">
+                                        <h5>{{$item->ruser->user_name}}</h5>
+                                        <span class="review-date">{{date("d M, Y",strtotime($item->review_date))}}</span>
+                                    </div>
+                                    <div class="review-rating">
+                                        @for($i=1;$i<$item->rating;$i++)
+                                            <i class="fas fa-star"></i>
+                                        @endfor
+                                    </div>
+                                </div>
+                                <div class="review-body">
+                                    <h5 class="review-title">“{{$item->title}}”</h5>
+                                    <p>{{$item->description}}</p>
+                                </div>
                             </div>
-                            <div class="header-info">
-                                <h5>Benjamin Vail</h5>
-                                <span class="review-date">15 May, 2018</span>
-                            </div>
-                            <div class="review-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                            </div>
-                        </div>
-                        <div class="review-body">
-                            <h5 class="review-title">“Amazing Customer Support”</h5>
-                            <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores</p>
-                        </div>
-                    </div>
-                    <div class="listing-review-block">
-                        <div class="review-header">
-                            <div class="thumb">
-                                <img src="/images/customer-2.jpg" class="img-fluid" alt="">
-                            </div>
-                            <div class="header-info">
-                                <h5>Timmy Murphy</h5>
-                                <span class="review-date">20 August, 2018</span>
-                            </div>
-                            <div class="review-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                        <div class="review-body">
-                            <h5 class="review-title">“Testy Food”</h5>
-                            <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores</p>
-                        </div>
-                    </div>
+                        @endforeach
+                    @else
+                        <p class="review-no-found">No Review Found</p>
+                    @endif
                 </div>
                 @if(Auth::check())
                     <div class="listing-details-section listing-write-review">
@@ -218,6 +200,23 @@
                                 @endif
                             @endforeach
                         </ul>
+                    </div>
+                    <div class="widget host">
+                        <div class="host-header">
+                            <div class="header-info">
+                                <span>Hosted by</span>
+                                <h5>{{$listing->ruser->name}}</h5>
+                            </div>
+                            <div class="thumb">
+                                <img src="{{url('upload/'.$listing->ruser->image)}}" class="img-fluid" alt="">
+                            </div>
+                        </div>
+                        <div class="host-info">
+                            <ul>
+                                <li><span><i class="far fa-envelope"></i>Mail:</span>{{$listing->ruser->email}}</li>
+                                <li><span><i class="fas fa-globe"></i>Website:</span><a href="{{$listing->website}}">{{$listing->website}}</a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -8,10 +8,15 @@ use Validator;
 Use Auth;
 use Illuminate\Support\Facades\File;
 class UserController extends Controller {
-   
-    public function __construct(){
-        $this->middleware('auth');
-    }
+    
+//    public function __construct(){
+//        $this->middleware(function ($request, $next) {
+//            if(!Auth::check() && Auth::user()->role!=1){
+//                return redirect('/');
+//            }
+//            return $next($request);
+//        });
+//    }
    
     public function index(){
 	   $users = User::select('id','name','email','status','image')->paginate(20);

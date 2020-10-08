@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\Review;
+use App\Models\Bookmarked;
 use Illuminate\Http\Response;
 class ajaxController extends Controller
 {
@@ -110,19 +111,52 @@ class ajaxController extends Controller
     }
     
     public function save_review(Request $request){
+        $check = Review::select('id')
+            ->where('user_id',Auth::user()->id)
+            ->where('listing_id',$request->input( 'listing_id' ))
+            ->first();
+        if($check){
+            return response()->json(array('success' => false,'message'=>'You Already Give Review for this Listing'));
+        }
         $review = new Review();
         $review->rating = $request->input( 'listing_rating' );
         $review->description = $request->input( 'listing_description' );
         $review->title = $request->input( 'listing_title' );
         $review->listing_id = $request->input( 'listing_id' );
         $review->user_id = Auth::user()->id;
+        $review->review_date = date('Y-m-d');
         
         if ( $review->save() ) {
-            $title = "HDTuto.com";
-            $html = view('page.review')->with(compact('title'))->render();
+            $review->user_name = Auth::user()->name;
+            $review->image = Auth::user()->image;
+            $html = view('page.review')->with(compact('review'))->render();
             return response()->json(array('success' => true, 'payload' => $html));
         }else{
-            return response()->json(array('success' => false));
+            return response()->json(array('success' => false,'message'=>'Error'));
+        }
+    }
+    public function save_favorite(Request $request){
+        
+        if(!Auth::check()){
+            return response()->json(array('success' => false,'message'=>'Please Login'));
+        }
+        
+        $check = Bookmarked::select('id')
+            ->where('user_id',Auth::user()->id)
+            ->where('listing_id',$request->input( 'listing_id' ))
+            ->first();
+        if($check){
+            return response()->json(array('success' => false,'message'=>'You Already Bookmarked this Listing'));
+        }
+        
+        $bookmarked = new Bookmarked();
+        $bookmarked->listing_id = $request->input( 'listing_id' );
+        $bookmarked->user_id = Auth::user()->id;
+        
+        if ( $bookmarked->save() ) {
+            return response()->json(array('success' => true,'message'=>'Bookmarked'));
+        }else{
+            return response()->json(array('success' => false,'message'=>'Error'));
         }
     }
 }

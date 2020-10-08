@@ -5,11 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Page;
 use Validator;
+use Auth;
 class PageController extends Controller
 {
-	public function __construct(){
-		$this->middleware('auth');
-	}
+    public function __construct(){
+        $this->middleware(function ($request, $next) {
+            if(!Auth::check() && Auth::user()->role!=1){
+                return redirect('/');
+            }
+            return $next($request);
+        });
+    }
     /**
      * Display a listing of the resource.
      *

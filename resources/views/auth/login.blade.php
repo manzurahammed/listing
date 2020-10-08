@@ -11,7 +11,7 @@
 		<form class="m-login__form m-form" method="POST" action="{{ route('login') }}">
 			{{ csrf_field() }}
 			<div class="form-group m-form__group">
-				<input class="form-control m-input"   type="text" placeholder="Email" name="email" value="{{ old('email') }}" required autofocus>
+				<input class="form-control m-input" type="text" placeholder="Email" name="email" value="{{ old('email') }}" required autofocus>
 			</div>
 			<div class="form-group m-form__group">
 				<input class="form-control m-input m-login__form-input--last" type="password" placeholder="Password" name="password" required>

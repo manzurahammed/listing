@@ -14,10 +14,7 @@
                     </div>
                 </div>
                 <div class="col-lg-5 order-lg-1">
-                    <ul class="footer-nav">
-                        <li><a href="#">Terms of Use</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                    </ul>
+
                 </div>
                 <div class="col-lg-5 order-lg-3">
                     <div class="backtotop">

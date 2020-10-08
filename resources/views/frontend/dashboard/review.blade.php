@@ -3,7 +3,7 @@
 @section('dashboard')
     <div class="dashboard-section dashboard-my-listing">
         <div class="dashboard-section-title">
-            <h5>Bookmarked</h5>
+            <h5>Review</h5>
             <span class="ti-map-alt"></span>
         </div>
         <div class="dashboard-section-body">

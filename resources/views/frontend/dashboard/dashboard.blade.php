@@ -11,7 +11,7 @@
                             <span class="ti-map-alt"></span>
                         </div>
                         <div class="content">
-                            <h4>4569</h4>
+                            <h4>{{$total_view}}</h4>
                             <span>Listing Views</span>
                         </div>
                     </div>
@@ -22,7 +22,7 @@
                             <span class="ti-eye"></span>
                         </div>
                         <div class="content">
-                            <h4>25</h4>
+                            <h4>{{$active_listing}}</h4>
                             <span>Active Listing</span>
                         </div>
                     </div>
@@ -33,20 +33,11 @@
                             <span class="ti-star"></span>
                         </div>
                         <div class="content">
-                            <h4>48</h4>
+                            <h4>{{$total_review}}</h4>
                             <span>Total Reviews</span>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="dashboard-section dashboard-view-chart">
-            <div class="dashboard-section-title">
-                <h5>Statistic</h5>
-                <span class="ti-bar-chart"></span>
-            </div>
-            <div class="dashboard-section-body">
-                <canvas id="view-chart" width="600" height="250"></canvas>
             </div>
         </div>
 @endsection

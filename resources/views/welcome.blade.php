@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Home</title>
+    <title>Listing</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Rubik:400,500%7CSignika:400,600,700" rel="stylesheet">
@@ -42,14 +42,16 @@
                             <span class="ti-menu"></span>
                         </button>
 
-                        <div class="nav-extra">
-                            <div class="user">
-                                <a href="#"><span class="ti-user"></span></a>
+                        @if(Auth::check())
+                            <div class="nav-extra">
+                                <div class="user">
+                                    <a href="{{url("/listing/all_listing")}}"><span class="ti-user"></span></a>
+                                </div>
+                                <div class="nav-listing">
+                                    <a href="{{url("/listing/add")}}"><span class="ti-plus"></span><span class="text">Add Listing</span></a>
+                                </div>
                             </div>
-                            <div class="nav-listing">
-                                <a href="post-listing.html"><span class="ti-plus"></span><span class="text">Add Listing</span></a>
-                            </div>
-                        </div>
+                        @endif
 
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav ml-auto mr-auto">
@@ -59,29 +61,13 @@
                                 <li class="menu-item">
                                     <a title="" href="{{ '/search' }}" aria-haspopup="true" aria-expanded="false">Listing</a>
                                 </li>
+                                @if(Auth::check())
                                 <li class="menu-item dropdown">
-                                    <a title="" href="#" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">User Panel</a>
-                                    <ul class="dropdown-menu">
-                                        <li class="menu-item"><a href="dashboard.html">Dashboard</a></li>
-                                        <li class="menu-item"><a href="edit-profile.html">Edit Profile</a></li>
-                                        <li class="menu-item"><a href="all-listing.html">My Listing</a></li>
-                                        <li class="menu-item"><a href="dashboard-add-listing.html">Add Listing</a></li>
-                                        <li class="menu-item"><a href="bookmarked.html">Bookmarked</a></li>
-                                        <li class="menu-item"><a href="message.html">Message</a></li>
-                                        <li class="menu-item"><a href="dashboard-pricing.html">Pricing</a></li>
-                                        <li class="menu-item"><a href="review.html">Review</a></li>
-                                    </ul>
+                                    <a href="{{"listing"}}" aria-haspopup="true" aria-expanded="false">User Panel</a>
                                 </li>
+                                @endif
                                 <li class="menu-item dropdown">
-                                    <a title="" href="#" data-toggle="dropdown" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">Pages</a>
-                                    <ul class="dropdown-menu">
-                                        <li class="menu-item"><a href="about.html">About Us</a></li>
-                                        <li class="menu-item"><a href="contact.html">Contact</a></li>
-                                        <li class="menu-item"><a href="blog-list.html">Blog</a></li>
-                                        <li class="menu-item"><a href="blog-grid.html">Blog Grid</a></li>
-                                        <li class="menu-item"><a href="blog-details.html">Blog Details</a></li>
-                                        <li class="menu-item"><a href="pricing.html">Pricing</a></li>
-                                    </ul>
+                                    <a title="" href="{{ '/contact' }}" aria-haspopup="true" aria-expanded="false">Contact</a>
                                 </li>
                             </ul>
                         </div>
@@ -268,10 +254,7 @@
             <div class="row">
                 <div class="col-lg-3 col-sm-6">
                     <div class="footer-widget footer-about">
-                        <div class="logo">
-                            <img src="{{ asset('images/frontend/footer-logo.png') }}" class="img-fluid" alt="">
-                        </div>
-                        <p class="copyright-text">© 2019 <a href="#">Listereon</a>. By <a href="#">CodePassergers</a> All Rights Reserved</p>
+                        <p class="copyright-text">© 2019 <a href="{{url("/listing/add")}}">Listing</a>. By <a href="#">BUBT</a> All Rights Reserved</p>
                         <div class="social-links">
                             <a href="#"><i class="fab fa-facebook-f"></i></a>
                             <a href="#"><i class="fab fa-twitter"></i></a>
@@ -283,32 +266,18 @@
                 </div>
                 <div class="col-lg-3 col-sm-6">
                     <div class="footer-widget footer-widget-links">
-                        <h5 class="footer-widget-title">Quick Links</h5>
-                        <ul>
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">Pricing Table</a></li>
-                            <li><a href="#">Recent Events</a></li>
-                            <li><a href="#">Latest News & Tops</a></li>
-                            <li><a href="#">Contact Us</a></li>
-                        </ul>
+
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6">
                     <div class="footer-widget footer-widget-links">
-                        <h5 class="footer-widget-title">My Account</h5>
-                        <ul>
-                            <li><a href="#">Dashboad</a></li>
-                            <li><a href="#">Listings</a></li>
-                            <li><a href="#">Favorites Listings</a></li>
-                            <li><a href="#">My Cart</a></li>
-                        </ul>
+
                     </div>
                 </div>
                 <div class="col-lg-3 col-sm-6">
                     <div class="footer-widget footer-widget-contact">
                         <h5 class="footer-widget-title">Contact Us</h5>
-                        <p class="office-address">9000 Regency Parkway, Suite 400 Cary, NC 27518</p>
-                        <p><span>E:</span> supportsaasapp@gmail.com <br> <span>P:</span> +000 1456 6978 111</p>
+                        <p class="office-address">90 Rupnagar, Mirpur 1, Dhaka 1210</p>
                     </div>
                 </div>
             </div>

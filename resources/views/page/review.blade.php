@@ -1,22 +1,20 @@
 <div class="listing-review-block">
 	<div class="review-header">
 		<div class="thumb">
-			<img src="/images/customer-1.jpg" class="img-fluid" alt="">
+			<img src="{{url('upload/'.$review->image)}}" class="img-fluid" alt="">
 		</div>
 		<div class="header-info">
-			<h5>Benjamin Vail</h5>
-			<span class="review-date">15 May, 2018</span>
+			<h5>{{$review->user_name}}</h5>
+			<span class="review-date">{{date("d M, Y",strtotime($review->review_date))}}</span>
 		</div>
 		<div class="review-rating">
-			<i class="fas fa-star"></i>
-			<i class="fas fa-star"></i>
-			<i class="fas fa-star"></i>
-			<i class="fas fa-star"></i>
-			<i class="far fa-star"></i>
+			@for($i=1;$i<$review->rating;$i++)
+				<i class="fas fa-star"></i>
+			@endfor
 		</div>
 	</div>
 	<div class="review-body">
-		<h5 class="review-title">“Amazing Customer Support”</h5>
-		<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores</p>
+		<h5 class="review-title">“{{$review->title}}”</h5>
+		<p>{{$review->description}}</p>
 	</div>
 </div>

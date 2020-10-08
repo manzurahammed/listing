@@ -6,8 +6,6 @@ $(document).ready(function () {
             //Taking data attribute from map wrapper
             var mapLat = parseFloat($(this).data('lat'))
             var mapLng = parseFloat($(this).data('lng'))
-            var mapZoom = parseInt($(this).data('zoom'))
-            var mapType = $(this).data('maptype')
 
             var container = L.DomUtil.get('location')
             if (container != null) {
@@ -31,14 +29,13 @@ $(document).ready(function () {
 
             var map = L.map('location', {
                 center: latlng,
-                zoom: 14,
+                zoom: 16,
                 scrollWheelZoom: false,
                 layers: [tiles],
             })
 
             var LeafIcon = L.Icon.extend({
                 options: {
-                    shadowUrl: 'leaf-shadow.png',
                     iconSize: [38, 95],
                     shadowSize: [50, 64],
                     iconAnchor: [22, 94],

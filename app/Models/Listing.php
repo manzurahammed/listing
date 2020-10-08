@@ -13,4 +13,7 @@ class Listing extends Model
     public function catname(){
         return $this->belongsTo('App\Models\Categories','cat_id')->select(array('id','name','image'));
     }
+    public function ruser(){
+        return $this->belongsTo('App\User','created_by')->select(array('id','name','image','email'));
+    }
 }
