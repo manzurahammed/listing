@@ -72,7 +72,7 @@
                             <div class="listing-header-review">
                                 <div class="rating">
                                     <p>{{$review->count()}}<br>Reviews</p>
-                                    <span class="total-rating">{{$total_rating/$review->count()}}</span>
+                                    <span class="total-rating">{{number_format($total_rating/$review->count(),1)}}</span>
                                 </div>
                                 <div class="add-review">
                                     <a href="#"><i class="fas fa-star"></i>Add Review</a>
