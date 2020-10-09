@@ -10,7 +10,7 @@ class PageController extends Controller
 {
     public function __construct(){
         $this->middleware(function ($request, $next) {
-            if(!Auth::check() && Auth::user()->role!=1){
+            if(Auth::check() && Auth::user()->role!=1 || !Auth::check()){
                 return redirect('/');
             }
             return $next($request);

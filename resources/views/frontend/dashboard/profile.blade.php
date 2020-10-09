@@ -13,7 +13,10 @@
                     <div class="col">
                         <div class="upload-profile-photo">
                             <div class="update-photo">
-                                @php ($image = 'upload/'.$users->image)
+                                @php ($image = '/upload/default.gif')
+                                @if(Auth::user()->image !='')
+                                    @php ($image = 'upload/'.Auth::user()->image)
+                                @endif
                                 {{Html::image($image,'profile picture',array('class' => 'image'))}}
                             </div>
                             <div class="file-upload">

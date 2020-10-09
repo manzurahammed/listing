@@ -199,8 +199,8 @@
                                         </div>
                                         <h3 class="varified"><a href="{{"listing/{$item->id}/details"}}">{{$item->title}}</a></h3>
                                         <div class="reviews">
-                                            <div class="rating">3.9</div>
-                                            <span>13 Reviews</span>
+                                            <div class="rating">{{number_format($item->rating,1)}}</div>
+                                            <span>{{$item->total_rating}} Reviews</span>
                                         </div>
                                         <div class="listing-location">
                                             <div class="icon">

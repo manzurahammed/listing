@@ -9,14 +9,14 @@ Use Auth;
 use Illuminate\Support\Facades\File;
 class UserController extends Controller {
     
-//    public function __construct(){
-//        $this->middleware(function ($request, $next) {
-//            if(!Auth::check() && Auth::user()->role!=1){
-//                return redirect('/');
-//            }
-//            return $next($request);
-//        });
-//    }
+    public function __construct(){
+        $this->middleware(function ($request, $next) {
+            if(Auth::check() && Auth::user()->role!=1 || !Auth::check()){
+                return redirect('/');
+            }
+            return $next($request);
+        });
+    }
    
     public function index(){
 	   $users = User::select('id','name','email','status','image')->paginate(20);
@@ -129,7 +129,8 @@ class UserController extends Controller {
 
     public function logout(Request $request){
         Auth::logout();
-	   $request->session()->invalidate();
+	    $request->session()->invalidate();
+        return redirect('/login');
     }
     public function profile(){
         $id = Auth::user()->id;

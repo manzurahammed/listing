@@ -20,6 +20,9 @@
 				<button id="m_login_signin_submit" class="btn btn-focus m-btn m-btn--pill m-btn--custom m-btn--air  m-login__btn m-login__btn--primary">
 					Sign In
 				</button>
+				<a id="m_login_signin_submit" href="{{'/register'}}" class="m-btn m-btn--pill m-btn--custom m-btn--air  m-login__btn m-login__btn--primary">
+					Register
+				</a>
 			</div>
 		</form>
 	</div>

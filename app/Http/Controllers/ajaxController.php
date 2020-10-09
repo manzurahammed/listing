@@ -17,7 +17,7 @@ class ajaxController extends Controller
         $category_ID = $request->input('category_ID');
         $keywords = $request->input('keywords');
 
-        if ($type == 'radius') {
+        if ($type == 'radius' && $radius>0 ) {
             $LATITUDE = $location[0];
             $LONGITUDE = $location[1];
             $queryString = (!empty($category_ID) ? " AND cat_id = $category_ID" : '');
@@ -38,27 +38,39 @@ class ajaxController extends Controller
                 )
             as distance FROM `listing`
         ) listing
-        INNER JOIN categories ON categories.id=listing.cat_id
+        INNER JOIN categories ON categories.id = listing.cat_id
         WHERE (distance <= $radius $queryString)
         LIMIT 15"));
         } else {
             if ($category_ID !== null) {
                 $listing = \DB::table('listing')
                     ->join('categories', 'categories.id', '=', 'listing.cat_id')
-                    ->select('categories.*', 'listing.*', 'listing.id as listing_id')
+                    ->join('review','listing.id','=','review.listing_id','left')
+                    ->select('categories.*', 'listing.*', 'listing.id as listing_id',\DB::raw('count(review.id) total_rating'),\DB::raw('(sum(rating)/count(review.id)) as rating'))
                     ->Where('categories.id', $category_ID)
-                    ->where('title', 'like', '%' . $keywords . '%')->get();
+                    ->where('listing.title', 'like', '%' . $keywords . '%')
+                    ->groupBy('listing.id')
+                    ->get();
             } else {
                 $listing = \DB::table('listing')
                     ->join('categories', 'categories.id', '=', 'listing.cat_id')
-                    ->select('categories.*', 'listing.*', 'listing.id as listing_id')
-                    ->where('title', 'like', '%' . $keywords . '%')->get();
+                    ->join('review','listing.id','=','review.listing_id','left')
+                    ->select('categories.*', 'listing.*', 'listing.id as listing_id', 'listing.id as listing_id',\DB::raw('count(review.id) total_rating'),\DB::raw('(sum(rating)/count(review.id)) as rating'))
+                    ->where('listing.title', 'like', '%' . $keywords . '%')
+                    ->groupBy('listing.id')
+                    ->get();
             }
         }
         // send respond markup
         $markup = '<div class="row">';
         if (count($listing) > 0) {
             foreach ($listing as $item) {
+                if(!isset($item->rating)){
+                    $item->rating = rand(1,5);
+                }
+                if(!isset($item->total_rating)){
+                    $item->total_rating = rand(1,10);
+                }
                 $icon = "/upload/default_image/avater-".rand(1,5).".jpg";
                 $markup .= '<div class="result-item col-md-6 map-top-result-item">';
                 $markup .= '<div class="lrn-listing-wrap" data-latitude="' . $item->latitude . '" data-longitude="' . $item->longitude . '" data-mapicon="' . url('upload/cat_image/' . $item->image) . '">
@@ -78,8 +90,8 @@ class ajaxController extends Controller
                         </div>
                         <h3 class="varified"><a href="listing/' . $item->listing_id . '/details">' . $item->title . '</a></h3>
                         <div class="reviews">
-                            <div class="rating">3.9</div>
-                            <span>13 Reviews</span>
+                            <div class="rating">'.number_format($item->rating,1).'</div>
+                            <span>'.$item->total_rating.' Reviews</span>
                         </div>
                         <div class="listing-location">
                             <div class="icon">

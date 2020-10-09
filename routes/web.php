@@ -21,6 +21,7 @@ Route::post('/searchmap', 'ajaxController@searchFilter');
 Route::post('/save_review', 'ajaxController@save_review');
 Route::post('/save_favorite', 'ajaxController@save_favorite');
 Route::get('listing/{id}/details', 'frontend\ListingController@listingDetails');
+Route::get('listing/logout', 'frontend\ListingController@logout');
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::prefix('listing')->group(function () {
@@ -39,7 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
 		Route::delete('/delete/{id}', array('uses' => 'frontend\ListingController@deleteListing', 'as' => 'listing.delete'));
 		Route::put('/store/{id}', array('uses' => 'frontend\ListingController@updateListing', 'as' => 'listing.update'));
 	});
-	
+
 	Route::resources([
 		'categories' => 'CategoryController',
 		'cities' => 'CityController',

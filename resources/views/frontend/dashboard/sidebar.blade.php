@@ -1,7 +1,10 @@
 
 <div class="lst-dash-user-profile">
     <div class="thumb">
-        @php ($image = 'upload/'.Auth::user()->image)
+        @php ($image = '/upload/default.gif')
+        @if(Auth::user()->image !='')
+            @php ($image = 'upload/'.Auth::user()->image)
+        @endif
         {{Html::image($image,'profile picture',array('class' => 'img-fluid'))}}
     </div>
     <div class="profile-body">
@@ -29,5 +32,5 @@
             <a href="{{url("listing/review")}}" class="{{ (request()->is('listing/review')) ? 'active' : '' }}"><i class="fas fa-star"></i>Review</a>
         </li>
     </ul>
-    <a href="{{url("logout")}}" class="logout-button">Logout</a>
+    <a href="{{url("listing/logout")}}" class="logout-button">Logout</a>
 </div>

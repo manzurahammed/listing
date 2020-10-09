@@ -9,8 +9,12 @@ class ExploreController extends Controller
 {
     public function index()
     {
-        $listing = Listing::where('status',0)->with('catname')->get();
-        //$listing = \DB::table('listing')->join('categories', 'categories.id', '=', 'listing.cat_id')->select('categories.*', 'listing.*')->get();
+        $listing = Listing
+            ::join('review','listing.id','=','review.listing_id','left')
+            ->select('listing.*',\DB::raw('count(review.id) total_rating'),\DB::raw('(sum(rating)/count(review.id)) as rating'))
+            ->groupBy('listing.id')
+            ->where('status',0)->with('catname')->paginate(10);
+        
         $category = \DB::table('categories')->get();
         $amenties = \DB::table('amenties')->get();
 
@@ -23,7 +27,12 @@ class ExploreController extends Controller
     
     public function mainPage(){
         $categories = Categories::select('id','name','slug','show_nav','image','icon')->where('show_nav',1)->paginate(5);
-        $listing = Listing::where('status',0)->with('catname')->paginate(30);
+        $listing = Listing
+            ::join('review','listing.id','=','review.listing_id','left')
+            ->select('listing.*',\DB::raw('count(review.id) total_rating'),\DB::raw('(sum(rating)/count(review.id)) as rating'))
+            ->groupBy('listing.id')
+            ->where('status',0)->with('catname')->paginate(10);
+        
         $city = Listing::join('city','city.id','=','listing.city_id')
             ->select(\DB::raw('count(listing.id) as total'),'city_id','city.name','city.image')
             ->groupBy('city_id')

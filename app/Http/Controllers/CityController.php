@@ -12,7 +12,12 @@ use App\Models\City;
 class CityController extends Controller {
 	
 	public function __construct () {
-		$this->middleware( 'auth' );
+        $this->middleware(function ($request, $next) {
+            if(Auth::check() && Auth::user()->role!=1 || !Auth::check()){
+                return redirect('/');
+            }
+            return $next($request);
+        });
 	}
 	
 	/**
