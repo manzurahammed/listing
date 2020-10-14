@@ -50,9 +50,6 @@ Route::group(['middleware' => 'auth'], function () {
 		'pages' => 'PageController',
 	]);
 	Route::get('/dashboard', 'DashBoardController@index');
-	Route::get('/catpaper', 'CatPaperController@index');
-	Route::post('/catpaper', 'CatPaperController@store');
-	Route::post('/getpaperlisrt', 'CatPaperController@paperlist');
 	Route::post('/show_nav', 'CategoryController@show_nav');
 	Route::post('/city_show_nav', 'CityController@city_show_nav');
 	Route::post('/updatestatus', 'UserController@updatestatus');
