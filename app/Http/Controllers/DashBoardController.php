@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Auth;
 class DashBoardController extends Controller
 {
     public function __construct(){
@@ -17,6 +17,6 @@ class DashBoardController extends Controller
 
     public function index()
     {
-        return view('dashboard.index');
+        return redirect('users');
     }
 }

@@ -13,18 +13,7 @@
 					</span>
 				</a>
 			</li>
-			<li class="m-menu__item " aria-haspopup="true" >
-				<a  href="{{url("/dashboard")}}" class="m-menu__link ">
-					<i class="m-menu__link-icon flaticon-line-graph"></i>
-					<span class="m-menu__link-title">
-						<span class="m-menu__link-wrap">
-							<span class="m-menu__link-text">
-								Dashboard
-							</span>
-						</span>
-					</span>
-				</a>
-			</li>
+
 			<li class="m-menu__section">
 				<h4 class="m-menu__section-text">
 					Components

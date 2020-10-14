@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Listing</title>
+    <title><?php echo isset($settings['site_title']['setting_value'])?$settings['site_title']['setting_value']:'Listing'; ?></title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Rubik:400,500%7CSignika:400,600,700" rel="stylesheet">
@@ -29,14 +29,14 @@
 </head>
 <body>
 
-<header class="header-bg-1">
+<header style="background: url(<?php echo isset($settings['home_image']['setting_value'])?'upload/'.$settings['home_image']['setting_value']:asset('images/frontend/banner-bg-1.jpg'); ?>) no-repeat center" class="header-bg-1">
     <div class="cp-nav nav-2 nav-absolute nav-light">
         <div class="container">
             <div class="row">
                 <div class="col">
                     <nav class="navbar navbar-expand-xl">
                         <a class="navbar-brand" href="{{ '/' }}">
-                            <img src="{{ asset('images/frontend/logo-white.png') }}" class="img-fluid" alt="">
+                            <img src="<?php echo isset($settings['logo']['setting_value'])?'upload/'.$settings['logo']['setting_value']:asset('images/frontend/logo-white.png'); ?>" class="img-fluid" alt="">
                         </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="ti-menu"></span>

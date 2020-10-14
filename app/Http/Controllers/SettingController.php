@@ -65,10 +65,8 @@ class SettingController extends Controller
     public function setField(){
         return array(
             array('name'=>'site_title','label'=>'Site Title','value'=>'','type'=>'text'),
-            array('name'=>'copy_right','label'=>'Copy Right','value'=>'','type'=>'text'),
+            array('name'=>'home_image','label'=>'Home Image','type'=>'file'),
             array('name'=>'logo','label'=>'Logo','type'=>'file'),
-			array('name'=>'description','label'=>'Description','value'=>'','type'=>'textarea'),
-			array('name'=>'keywords','label'=>'Keywords','value'=>'','type'=>'textarea'),
         );
     }
 
